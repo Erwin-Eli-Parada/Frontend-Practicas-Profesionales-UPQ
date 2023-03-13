@@ -1,7 +1,7 @@
 .login {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(180deg, rgb(38, 81, 148), rgba(38, 81, 148, 0.79));
+  background: linear-gradient(180deg, rgb(38, 81, 148), rgba(38, 81, 148, 0.85));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,17 +12,54 @@
   justify-content: space-between;
   align-items: center;
   background-color: #265194;
-  padding: 20px;
-  padding-bottom: 30px;
+  padding: 40px 20px;
   height: 70%;
   min-height: 400px;
   width: 30%;
   min-width: 300px;
   box-shadow: 5px 5px 5px 3px rgba(1, 28, 71, 0.2);
   border-radius: 10px;
+  animation-duration: 3s;
+  animation-name: bajadainicio;
 }
 .login-container h1 {
   color: white;
   text-align: center;
   width: 80%;
+}
+.login-container .input {
+  width: 80%;
+  height: 45px;
+  border-radius: 10px;
+  padding-left: 5px;
+  font-size: 18px;
+  border: none;
+}
+.login-container .input:focus {
+  border: none;
+  outline: none;
+}
+.login-container .submit {
+  font-size: 18px;
+  width: 54%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: rgba(56, 117, 208, 0.856);
+  border: none;
+  color: white;
+  box-shadow: 3px 3px 5px 3px rgba(1, 28, 71, 0.2);
+}
+.login-container .submit:hover {
+  background-color: #265194;
+}
+.login-container .submit:focus {
+  background-color: rgba(42, 109, 209, 0.856);
+}
+@keyframes bajadainicio {
+  0% {
+    margin-bottom: 100%;
+  }
+  100% {
+    margin-bottom: 0%;
+  }
 }/*# sourceMappingURL=login.css.map */
