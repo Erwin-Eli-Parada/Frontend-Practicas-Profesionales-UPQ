@@ -8,6 +8,8 @@ import { Datos } from "./pages/datos";
 import { Error404 } from "./pages/error404";
 import { Login } from "./pages/login";
 import PrivateRoute from "./Components/privateRoute";
+//estilos
+import "./index.css"
 
 const root=ReactDOM.createRoot(document.getElementById('root'));
 

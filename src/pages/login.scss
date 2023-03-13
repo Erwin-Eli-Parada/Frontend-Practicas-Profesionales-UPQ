@@ -1,0 +1,32 @@
+.login{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(38,81,148,1), rgba(38,81,148,.79));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #265194;
+        padding: 20px;
+        padding-bottom: 30px;
+        height: 70%;
+        min-height: 400px;
+        width: 30%;
+        min-width: 300px;
+        box-shadow: 5px 5px 5px 3px rgba(1,28,71,.2);
+        border-radius: 10px;
+
+        h1{
+            color: white;
+            text-align: center;
+            width: 80%;
+        }
+
+        
+    }
+}
