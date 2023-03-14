@@ -30,8 +30,8 @@ root.render(
                 }/>
                 <Route exact path="/datos" element={
                     <PrivateRoute>
-                    <Datos/>
-                </PrivateRoute>
+                        <Datos/>
+                    </PrivateRoute>
                 }/>
                 <Route exact path="/dashboard" element={
                     <PrivateRoute>

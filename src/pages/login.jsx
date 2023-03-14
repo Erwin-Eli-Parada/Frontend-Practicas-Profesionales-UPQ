@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext} from "react";
+import { useNavigate } from "react-router-dom";
+import { MainContext } from "../contexts/mainContext";
+import verificar from "../functions/verficar";
 //estilos
 import "./login.css";
 
 export function Login(props){
     
-    const [usuario,setUsuario] = useState("");
-    const [password,setPassword] = useState("");
+    const {setUsuario,setPassword, usuario, password} = useContext(MainContext);
+    const navigate = useNavigate();
 
     const handleChangeUsuario = (e)=> {
         setUsuario(e.target.value);
-        console.log(usuario)
     }
 
     const handleChangePassword = (e)=> {
@@ -17,9 +19,19 @@ export function Login(props){
     }
 
     const handleSubmit = (e)=> {
-        alert('A name was submitted: ' + usuario);
-        console.log(usuario,password)
+        // if(!auth) {
+        //     alert('Usuario o contraseña incorrecta');
+        // }
         e.preventDefault();
+        let verificado=verificar(usuario,password)
+        navigate('/dashboard',{
+            replace: true,
+            state:{
+                usuario: usuario,
+                password: password,
+                auth: verificado
+            }
+        })
     }
 
     return(
