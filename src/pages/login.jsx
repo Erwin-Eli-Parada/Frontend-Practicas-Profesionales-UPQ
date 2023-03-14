@@ -18,20 +18,12 @@ export function Login(props){
         setPassword(e.target.value);
     }
 
-    const handleSubmit = (e)=> {
+    const handleSubmit = async(e)=> {
         // if(!auth) {
         //     alert('Usuario o contraseña incorrecta');
         // }
         e.preventDefault();
-        let verificado=verificar(usuario,password)
-        navigate('/dashboard',{
-            replace: true,
-            state:{
-                usuario: usuario,
-                password: password,
-                auth: verificado
-            }
-        })
+        await verificar(usuario,password, navigate)
     }
 
     return(
