@@ -11,9 +11,10 @@ export default function verificar(usuario, password, navigate) {
                 navigate('/dashboard', {
                     replace: true,
                     state: {
-                        usuario: usuario,
+                        usuario: res.username,
                         password: password,
-                        auth: res.is_active
+                        auth: res.is_active,
+                        permiso: res.is_staff
                     }
                 })
             } else {
