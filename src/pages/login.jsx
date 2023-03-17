@@ -30,8 +30,8 @@ export function Login(props){
         <div className="login">
             <form className="login-container" onSubmit={handleSubmit}>
                 <h1>Bienvenido al sistema de prácticas profesionales</h1>
-                <input type="email" className="input" placeholder="correo" onChange={handleChangeUsuario} required/>
-                <input type="password" className="input" placeholder="contraseña"onChange={handleChangePassword} required/>
+                <input type="email" className="input" placeholder="Correo" onChange={handleChangeUsuario} required/>
+                <input type="password" className="input" placeholder="Contraseña"onChange={handleChangePassword} required/>
                 <input type="submit" value="Login" className="submit"/>
             </form>
         </div>
