@@ -64,12 +64,12 @@ export function Menu(props) {
         return (
             <div className="page">
                 <nav className="navigationBar">
-                    <p className="usuario">Hola {usuario}</p>
+                    <p className="usuario"><img src="https://upq.occ.com.mx/Content/SiteManager/rue/xmx5upqx/images/logo.png"></img>Hola {usuario}</p>
                     <div className="botones">
-                        <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/>Dashboard</button>
-                        <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/>Datos</button>
-                        <button className="btn btn-pagina" onClick={handleClickAdmin}><FontAwesomeIcon icon={faUsers}/>admin</button>
-                        <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/>Salir</button>
+                        <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/><p>Dashboard</p></button>
+                        <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/><p>Datos</p></button>
+                        <button className="btn btn-pagina" onClick={handleClickAdmin}><FontAwesomeIcon icon={faUsers}/><p>Admin</p></button>
+                        <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/><p>Salir</p></button>
                     </div>
                 </nav>
                 {props.children}
@@ -82,9 +82,9 @@ export function Menu(props) {
                 <nav className="navigationBar">
                     <p className="usuario">Hola {usuario}</p>
                     <div className="botones">
-                        <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/>Dashboard</button>
-                        <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/>Datos</button>
-                        <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/>Salir</button>
+                        <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/><p>Dashboard</p></button>
+                        <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/><p>Datos</p></button>
+                        <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/><p>Salir</p></button>
                     </div>
                 </nav>
                 {props.children}
@@ -97,7 +97,7 @@ export function Menu(props) {
             <nav className="navigationBar">
                 <p className="usuario">Hola {usuario}</p>
                 <div className="botones">
-                    <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/>Salir</button>
+                    <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/><p>Salir</p></button>
                 </div>
             </nav>
             {props.children}
