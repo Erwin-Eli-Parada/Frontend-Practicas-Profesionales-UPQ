@@ -8,6 +8,18 @@ export default function verificar(usuario, password, navigate) {
                 alert('Usuario o contraseña incorrecta');
             } else if (res.is_active) {
                 console.log("verificado", res.is_active)
+                if(!res.is_staff && !res.is_superuser){
+                    navigate('/datos', {
+                        replace: true,
+                        state: {
+                            usuario: res.username,
+                            password: password,
+                            auth: res.is_active,
+                            permiso: res.is_staff,
+                            superUsuario: res.is_superuser
+                        }
+                    })
+                }
                 navigate('/dashboard', {
                     replace: true,
                     state: {

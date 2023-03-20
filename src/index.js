@@ -8,6 +8,7 @@ import { Datos } from "./pages/datos";
 import { Error404 } from "./pages/error404";
 import { Login } from "./pages/login";
 import PrivateRoute from "./Components/privateRoute";
+import {Menu} from "./Components/menu";
 //estilos
 import "./index.css"
 
@@ -25,17 +26,23 @@ root.render(
                 }/>
                 <Route exact path="/admin" element={
                     <PrivateRoute>
-                        <Admin/>
+                        <Menu>
+                            <Admin/>
+                        </Menu>
                     </PrivateRoute>
                 }/>
                 <Route exact path="/datos" element={
                     <PrivateRoute>
+                        <Menu>
                         <Datos/>
+                        </Menu>
                     </PrivateRoute>
                 }/>
                 <Route exact path="/dashboard" element={
                     <PrivateRoute>
+                        <Menu>
                         <Dashboard/>
+                        </Menu>
                     </PrivateRoute>
                 }/>
                 <Route exact path="/" element={

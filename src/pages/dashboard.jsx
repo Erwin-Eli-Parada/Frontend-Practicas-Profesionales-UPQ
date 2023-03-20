@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { Menu } from "../Components/menu";
+// import { Menu } from "../Components/menu";
 import { MainContext } from "../contexts/mainContext";
 
 export function Dashboard(props){
@@ -18,7 +18,7 @@ export function Dashboard(props){
         <>
             <h1 usuario="usuario">Dashboard</h1>
             {/* <Menu usuario={state.usuario} is_active={state.auth} is_staff={state.permiso}/> */}
-            <Menu />
+            {/* <Menu /> */}
         </>
     )
 }
