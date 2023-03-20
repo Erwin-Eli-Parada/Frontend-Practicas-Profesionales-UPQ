@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MainContext } from "../contexts/mainContext";
 import verificar from "../functions/verficar";
 //estilos
-import "./login.css";
+import "../styles/login.css";
 
 export function Login(props){
     

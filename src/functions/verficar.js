@@ -19,7 +19,7 @@ export default function verificar(usuario, password, navigate) {
                             superUsuario: res.is_superuser
                         }
                     })
-                }
+                }else{
                 navigate('/dashboard', {
                     replace: true,
                     state: {
@@ -30,6 +30,7 @@ export default function verificar(usuario, password, navigate) {
                         superUsuario: res.is_superuser
                     }
                 })
+                }
             } else {
                 alert('Usuario o contraseña incorrecta');
             }
