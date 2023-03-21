@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { MainContextProvider } from "./contexts/mainContext";
 import { Admin } from "./pages/admin";
 import { Dashboard } from "./pages/dashboard";
@@ -8,11 +8,11 @@ import { Datos } from "./pages/datos";
 import { Error404 } from "./pages/error404";
 import { Login } from "./pages/login";
 import PrivateRoute from "./Components/privateRoute";
-import {Menu} from "./Components/menu";
+import { Menu } from "./Components/menu";
 //estilos
 import "./index.css"
 
-const root=ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <MainContextProvider>
@@ -21,36 +21,36 @@ root.render(
             <Routes>
                 <Route exact path="/login" element={
                     <>
-                        <Login/>
+                        <Login />
                     </>
-                }/>
+                } />
                 <Route exact path="/admin" element={
                     <PrivateRoute>
                         <Menu>
-                            <Admin/>
+                            <Admin />
                         </Menu>
                     </PrivateRoute>
-                }/>
+                } />
                 <Route exact path="/datos" element={
                     <PrivateRoute>
                         <Menu>
-                        <Datos/>
+                            <Datos />
                         </Menu>
                     </PrivateRoute>
-                }/>
+                } />
                 <Route exact path="/dashboard" element={
                     <PrivateRoute>
                         <Menu>
-                        <Dashboard/>
+                            <Dashboard />
                         </Menu>
                     </PrivateRoute>
-                }/>
+                } />
                 <Route exact path="/" element={
                     <Navigate to="/login" replace></Navigate>
-                }/>
+                } />
                 <Route path="*" element={
-                    <Error404/>
-                }/>
+                    <Error404 />
+                } />
             </Routes>
         </Router>
     </MainContextProvider>

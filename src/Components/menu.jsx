@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MainContext } from "../contexts/mainContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faChartLine, faTable, faUsers, faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faTable, faUsers, faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/menu.css"
 
@@ -64,7 +64,7 @@ export function Menu(props) {
         return (
             <div className="page">
                 <nav className="navigationBar">
-                    <p className="usuario"><img src="https://upq.occ.com.mx/Content/SiteManager/rue/xmx5upqx/images/logo.png"></img>Hola {usuario}</p>
+                    <p className="usuario"><img src="https://upq.occ.com.mx/Content/SiteManager/rue/xmx5upqx/images/logo.png" alt="Logo UPQ"></img>Hola {usuario}</p>
                     <div className="botones">
                         <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/><p>Dashboard</p></button>
                         <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/><p>Datos</p></button>
