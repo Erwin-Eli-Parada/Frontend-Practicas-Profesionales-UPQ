@@ -1,3 +1,76 @@
 .principal {
   padding: 0 30px;
+}
+.principal h1 {
+  margin: 10px 0;
+}
+.principal .search {
+  margin: 10px 0;
+}
+.principal .search-input {
+  padding: 2px;
+  width: 25%;
+}
+.principal .search .busqueda {
+  padding: 1px 6px;
+  background-color: transparent;
+  border: none;
+  font-size: larger;
+}
+.principal .paginacion {
+  margin: 10px 0 5px 0;
+}
+.principal .paginacion-btn {
+  background-color: transparent;
+  border: none;
+  font-size: small;
+  -webkit-text-decoration: underline black;
+          text-decoration: underline black;
+}
+.principal .paginacion-btn:hover {
+  color: blue;
+  -webkit-text-decoration: underline blue;
+          text-decoration: underline blue;
+}
+.principal .paginacion-text {
+  font-size: small;
+  margin: 0 10px;
+}
+.principal .tablaUsuarios-body .fila-botones {
+  width: 90px;
+}
+.principal .tablaUsuarios-body .fila-botones .editar {
+  background-color: #367ee9;
+  border: none;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+.principal .tablaUsuarios-body .fila-botones .eliminar {
+  background-color: #ea557a;
+  border: none;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+.principal .agregar-wrapper {
+  display: flex;
+  justify-content: end;
+}
+.principal .agregar-wrapper .agregar {
+  background-color: #4188f2;
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+@media (max-width: 650px) {
+  .principal .tablaUsuarios-body .fila-botones .editar {
+    margin-left: 5px;
+  }
+  .principal .tablaUsuarios-body .fila-botones .eliminar {
+    margin-top: 5px;
+  }
 }/*# sourceMappingURL=admin.css.map */

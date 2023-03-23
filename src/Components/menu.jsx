@@ -80,7 +80,7 @@ export function Menu(props) {
         return (
             <div className="page">
                 <nav className="navigationBar">
-                    <p className="usuario">Hola {usuario}</p>
+                <p className="usuario"><img src="https://upq.occ.com.mx/Content/SiteManager/rue/xmx5upqx/images/logo.png" alt="Logo UPQ"></img>Hola {usuario}</p>
                     <div className="botones">
                         <button className="btn btn-pagina" onClick={handleClickDashboard}><FontAwesomeIcon icon={faChartLine}/><p>Dashboard</p></button>
                         <button className="btn btn-pagina" onClick={handleClickDatos}><FontAwesomeIcon icon={faTable}/><p>Datos</p></button>
@@ -95,7 +95,7 @@ export function Menu(props) {
     return (
         <div className="page">
             <nav className="navigationBar">
-                <p className="usuario">Hola {usuario}</p>
+            <p className="usuario"><img src="https://upq.occ.com.mx/Content/SiteManager/rue/xmx5upqx/images/logo.png" alt="Logo UPQ"></img>Hola {usuario}</p>
                 <div className="botones">
                     <button className="btn btn-salir" onClick={handleClickSalir}><FontAwesomeIcon icon={faRightFromBracket}/><p>Salir</p></button>
                 </div>

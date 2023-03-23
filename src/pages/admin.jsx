@@ -64,9 +64,9 @@ export function Admin(props) {
             <td>{element.nombre}</td>
             <td>{element.email}</td>
             <td>{element.is_superuser?"Administrador":element.is_staff?"Staff":"Estudiante"}</td>
-            <td>
-                <button><FontAwesomeIcon icon={faPenToSquare}/></button>
-                <button><FontAwesomeIcon icon={faTrash}/></button>
+            <td className="fila-botones">
+                <button className="editar"><FontAwesomeIcon icon={faPenToSquare}/></button>
+                <button className="eliminar"><FontAwesomeIcon icon={faTrash}/></button>
             </td>
         </tr>
     );
@@ -75,6 +75,12 @@ export function Admin(props) {
     const handleChangeSearch = e => {
         setCurrentPage(0);
         setSearch(e.target.value);
+    }
+
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            usuarioFiltrado();
+        }
     }
 
     const nextPage = e => {
@@ -95,16 +101,16 @@ export function Admin(props) {
     return (
         <div className="principal">
             <h1>Administración</h1>
-            <div>
-                <input type="text" className="search" placeholder="search" onChange={handleChangeSearch}></input>
+            <div className="search">
+                <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
                 <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
             </div>
-            <div>
-                <button onClick={prevPage}>Anterior</button>
-                <p>Registros del {currentPage+1} al {currentPage+5}</p>
-                <button onClick={nextPage}>Siguiente</button>
+            <div className="paginacion">
+                <button className="paginacion-btn" onClick={prevPage}>Anterior</button>
+                <span className="paginacion-text">Registros del {currentPage+1} al {currentPage+5}</span>
+                <button className="paginacion-btn" onClick={nextPage}>Siguiente</button>
             </div>
-            <Table striped bordered hover className="tablausuarios">
+            <Table striped bordered hover className="tablaUsuarios">
                 <thead className="tablaUsuarios-head">
                     <tr>
                         <th scope="col">#</th>
@@ -119,8 +125,8 @@ export function Admin(props) {
                     {lisItems}
                 </tbody>
             </Table>
-            <div>
-                <button onClick={mostrar}><FontAwesomeIcon icon={faPlus}/>Agregar</button>
+            <div className="agregar-wrapper">
+                <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus}/>Agregar</button>
             </div>
             <Modal show={show} setShow={setShow}/>
         </div>

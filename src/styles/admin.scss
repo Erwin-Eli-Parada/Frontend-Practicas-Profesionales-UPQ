@@ -1,7 +1,99 @@
-.principal{
+.principal {
     padding: 0 30px;
 
-    .tablausuarios{
-        // min-width: 610px;
+    h1 {
+        margin: 10px 0;
+    }
+
+    .search {
+        margin: 10px 0;
+
+        &-input {
+            padding: 2px;
+            width: 25%;
+        }
+
+        .busqueda {
+            padding: 1px 6px;
+            background-color: transparent;
+            border: none;
+            font-size: larger;
+        }
+    }
+
+    .paginacion {
+        margin: 10px 0 5px 0;
+
+        &-btn {
+            background-color: transparent;
+            border: none;
+            font-size: small;
+            text-decoration: underline black;
+
+            &:hover {
+                color: blue;
+                text-decoration: underline blue;
+            }
+        }
+
+        &-text {
+            font-size: small;
+            margin: 0 10px;
+        }
+    }
+
+    .tablaUsuarios {
+        &-body {
+            .fila-botones {
+                width: 90px;
+
+                .editar {
+                    background-color: #367ee9;
+                    border: none;
+                    border-radius: 5px;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .eliminar {
+                    background-color: #ea557a;
+                    border: none;
+                    border-radius: 5px;
+                    width: 30px;
+                    height: 30px;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+
+    .agregar-wrapper{
+        display: flex;
+        justify-content: end;
+        .agregar {
+            background-color: #4188f2;
+            padding: 10px 15px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    }
+}
+
+@media (max-width:650px) {
+    .principal {
+        .tablaUsuarios {
+            &-body {
+                .fila-botones {
+                    .editar {
+                        margin-left: 5px;
+                    }
+
+                    .eliminar {
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
     }
 }
