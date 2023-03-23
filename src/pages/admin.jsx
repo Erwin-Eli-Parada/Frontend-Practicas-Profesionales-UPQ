@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
-import Modal from "../Components/modal";
+import {ModalUsuarios} from "../Components/modal";
 import "../styles/admin.css";
 
 export function Admin(props) {
@@ -128,7 +128,7 @@ export function Admin(props) {
             <div className="agregar-wrapper">
                 <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus}/>Agregar</button>
             </div>
-            <Modal show={show} setShow={setShow}/>
+            <ModalUsuarios show={show} setShow={setShow}/>
         </div>
     )
 }

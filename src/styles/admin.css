@@ -10,6 +10,8 @@
 .principal .search-input {
   padding: 2px;
   width: 25%;
+  border-radius: 5px;
+  border-width: 1px;
 }
 .principal .search .busqueda {
   padding: 1px 6px;
