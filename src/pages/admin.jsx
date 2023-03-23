@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 // import { Menu } from "../Components/menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import { Table } from "react-bootstrap";
+import Modal from "../Components/modal";
+import "../styles/admin.css";
 
 export function Admin(props) {
 
@@ -9,6 +12,7 @@ export function Admin(props) {
     const [currentPage, setCurrentPage] = useState(0);
     const [search, setSearch] = useState('');
     const [filtrado, setFiltrado] = useState([]);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         const execute = async () => {
@@ -27,6 +31,7 @@ export function Admin(props) {
     useEffect(() => {
         usuarioFiltrado()
     }, [currentPage])
+
     // const buscar = async e => {
     //     let usuarios = await fetch('http://127.0.0.1:8000/api/usuario/')
     //         .then(data => data.json())
@@ -37,6 +42,7 @@ export function Admin(props) {
     //     return usuarios;
     // }
     //nuevo arreglo filtrado
+    
     console.log("usuarios",usuarios)
 
     const usuarioFiltrado = () =>{
@@ -82,8 +88,12 @@ export function Admin(props) {
         }
     }
 
+    const mostrar = e => {
+        setShow(true)
+    }
+
     return (
-        <div>
+        <div className="principal">
             <h1>Administración</h1>
             <div>
                 <input type="text" className="search" placeholder="search" onChange={handleChangeSearch}></input>
@@ -94,7 +104,7 @@ export function Admin(props) {
                 <p>Registros del {currentPage+1} al {currentPage+5}</p>
                 <button onClick={nextPage}>Siguiente</button>
             </div>
-            <table className="tablaUsuarios">
+            <Table striped bordered hover className="tablausuarios">
                 <thead className="tablaUsuarios-head">
                     <tr>
                         <th scope="col">#</th>
@@ -108,10 +118,11 @@ export function Admin(props) {
                 <tbody className="tablaUsuarios-body">
                     {lisItems}
                 </tbody>
-            </table>
+            </Table>
             <div>
-                <button><FontAwesomeIcon icon={faPlus}/>Agregar</button>
+                <button onClick={mostrar}><FontAwesomeIcon icon={faPlus}/>Agregar</button>
             </div>
+            <Modal show={show} setShow={setShow}/>
         </div>
     )
 }

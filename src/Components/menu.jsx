@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MainContext } from "../contexts/mainContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faTable, faUsers, faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/menu.css"
 
 export function Menu(props) {
