@@ -1,0 +1,21 @@
+.modal-header {
+  background: linear-gradient(90deg, #002C6E, #AE0732);
+}
+.modal-header-title {
+  font-weight: bolder !important;
+  color: white;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  height: 500px;
+}
+.modal-body-input {
+  height: 10%;
+  border-radius: 10px;
+  border: none;
+  background-color: RGB(236, 236, 236);
+  padding: 0 10px;
+}/*# sourceMappingURL=modal.css.map */

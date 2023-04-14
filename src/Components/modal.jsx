@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import "../styles/modal.css";
 
 export function ModalUsuarios({ show, setShow}) {
 
@@ -67,26 +68,26 @@ export function ModalUsuarios({ show, setShow}) {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Agregar Usuario</Modal.Title>
+            <Modal show={show} onHide={handleClose} className='modal'>
+                <Modal.Header closeButton className='modal-header'>
+                    <Modal.Title className='modal-header-title'>Agregar Usuario</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
-                    <input type="text" placeholder='Nombre(s)' onChange={e => { setNombre(e.target.value) }} />
-                    <input type="text" placeholder='Apellidos' onChange={e => { setApellido(e.target.value) }} />
-                    <input type="text" placeholder='Usuario' onChange={e => { setUsuario(e.target.value) }} />
-                    <input type="email" placeholder='Correo' onChange={e => { setCorreo(e.target.value) }} />
-                    <input type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
-                    <select name="select" defaultValue={role} onChange={e => { console.log("valor elejido",e.target.value); setRole(e.target.value) }}>
+                <Modal.Body className='modal-body'>
+                    <input className='modal-body-input' type="text" placeholder='Nombre(s)' onChange={e => { setNombre(e.target.value) }} />
+                    <input className='modal-body-input' type="text" placeholder='Apellidos' onChange={e => { setApellido(e.target.value) }} />
+                    <input className='modal-body-input' type="text" placeholder='Usuario' onChange={e => { setUsuario(e.target.value) }} />
+                    <input className='modal-body-input' type="email" placeholder='Correo' onChange={e => { setCorreo(e.target.value) }} />
+                    <input className='modal-body-input' type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
+                    <select className='modal-body-input' name="select" defaultValue={role} onChange={e => { console.log("valor elejido",e.target.value); setRole(e.target.value) }}>
                         <option value={1}>Administrador</option>
                         <option value={2}>Staff</option>
                         <option value={3}>Estudiante</option>
                     </select>
                 </Modal.Body>
 
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                <Modal.Footer className='modal-footer'>
+                    <Button variant="danger" onClick={handleClose}>
                         Cerrar
                     </Button>
                     <Button variant="primary" onClick={handleSave}>
