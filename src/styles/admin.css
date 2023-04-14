@@ -4,20 +4,39 @@
 .principal h1 {
   margin: 10px 0;
 }
-.principal .search {
-  margin: 10px 0;
+.principal .cabecera-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
-.principal .search-input {
+.principal .cabecera-wrapper .search {
+  margin: 10px 0;
+  width: 100%;
+}
+.principal .cabecera-wrapper .search-input {
   padding: 2px;
   width: 25%;
   border-radius: 5px;
   border-width: 1px;
+  min-width: 120px;
 }
-.principal .search .busqueda {
+.principal .cabecera-wrapper .search .busqueda {
   padding: 1px 6px;
   background-color: transparent;
   border: none;
   font-size: larger;
+}
+.principal .cabecera-wrapper .agregar {
+  background-color: #4188f2;
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.principal .cabecera-wrapper .agregar p {
+  margin-bottom: 0;
 }
 .principal .paginacion {
   margin: 10px 0 5px 0;
@@ -56,17 +75,6 @@
   height: 30px;
   margin-left: 5px;
 }
-.principal .agregar-wrapper {
-  display: flex;
-  justify-content: end;
-}
-.principal .agregar-wrapper .agregar {
-  background-color: #4188f2;
-  padding: 10px 15px;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
 
 @media (max-width: 650px) {
   .principal .tablaUsuarios-body .fila-botones .editar {
@@ -74,5 +82,10 @@
   }
   .principal .tablaUsuarios-body .fila-botones .eliminar {
     margin-top: 5px;
+  }
+}
+@media (max-width: 782px) {
+  .principal .cabecera-wrapper .agregar p {
+    display: none;
   }
 }/*# sourceMappingURL=admin.css.map */

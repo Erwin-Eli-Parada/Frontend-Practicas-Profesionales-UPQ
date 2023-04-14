@@ -56,7 +56,15 @@ export function Menu(props) {
 
     const handleClickSalir = e => {
         setAuth(false)
-        navigate('/login');
+        navigate('/login', {
+            replace: true,
+            state: {
+                usuario: "",
+                auth: false,
+                permiso: false,
+                superUsuario: false
+            }
+        });
     }
 
     if (superUser) {

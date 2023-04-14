@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 // import { Menu } from "../Components/menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
-import {ModalUsuarios} from "../Components/modal";
+import { ModalUsuarios } from "../Components/modal";
 import "../styles/admin.css";
 
 export function Admin(props) {
@@ -14,6 +14,8 @@ export function Admin(props) {
     const [filtrado, setFiltrado] = useState([]);
     const [show, setShow] = useState(false);
 
+    const numero_tabla = 9; //numero de registros a ver en la tabla
+
     useEffect(() => {
         const execute = async () => {
             const usuarios = await fetch('http://127.0.0.1:8000/api/usuario/')
@@ -23,7 +25,7 @@ export function Admin(props) {
                 })
             console.log(usuarios)
             setUsuarios(usuarios)
-            setFiltrado(usuarios.slice(currentPage, currentPage+5))
+            setFiltrado(usuarios.slice(currentPage, currentPage + numero_tabla))
         };
         execute();
     }, []);
@@ -42,31 +44,31 @@ export function Admin(props) {
     //     return usuarios;
     // }
     //nuevo arreglo filtrado
-    
-    console.log("usuarios",usuarios)
 
-    const usuarioFiltrado = () =>{
-        if(search.length === 0)
-            return setFiltrado(usuarios.slice(currentPage, currentPage+5));
+    console.log("usuarios", usuarios)
+
+    const usuarioFiltrado = () => {
+        if (search.length === 0)
+            return setFiltrado(usuarios.slice(currentPage, currentPage + numero_tabla));
 
         const filtrados = usuarios.filter(element => element.username.includes(search));
-        return setFiltrado(filtrados.slice(currentPage, currentPage+5));
+        return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
     }
 
-    console.log("usuario filtrado",filtrado.length)
-    console.log("Pagina actual",currentPage)
-    console.log("busqueda",search.length)
-    
-    const lisItems = filtrado.map( element =>
+    console.log("usuario filtrado", filtrado.length)
+    console.log("Pagina actual", currentPage)
+    console.log("busqueda", search.length)
+
+    const lisItems = filtrado.map(element =>
         <tr key={element.id}>
             <td>{element.id}</td>
             <td>{element.username}</td>
             <td>{element.nombre}</td>
             <td>{element.email}</td>
-            <td>{element.is_superuser?"Administrador":element.is_staff?"Staff":"Estudiante"}</td>
+            <td>{element.is_superuser ? "Administrador" : element.is_staff ? "Staff" : "Estudiante"}</td>
             <td className="fila-botones">
-                <button className="editar"><FontAwesomeIcon icon={faPenToSquare}/></button>
-                <button className="eliminar"><FontAwesomeIcon icon={faTrash}/></button>
+                <button className="editar"><FontAwesomeIcon icon={faPenToSquare} /></button>
+                <button className="eliminar"><FontAwesomeIcon icon={faTrash} /></button>
             </td>
         </tr>
     );
@@ -84,13 +86,13 @@ export function Admin(props) {
     }
 
     const nextPage = e => {
-        if(filtrado.length>=currentPage+5)
-        setCurrentPage(currentPage+5);
+        if (filtrado.length >= currentPage + numero_tabla)
+            setCurrentPage(currentPage + numero_tabla);
     }
 
     const prevPage = e => {
-        if(currentPage>0){
-            setCurrentPage(currentPage-5);
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - numero_tabla);
         }
     }
 
@@ -100,17 +102,20 @@ export function Admin(props) {
 
     return (
         <div className="principal">
-            <h1>Administración</h1>
-            <div className="search">
-                <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
-                <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
+            <h1 className="tituloPagina">Administración</h1>
+            <div className="cabecera-wrapper">
+                <div className="search">
+                    <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
+                    <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                </div>
+                <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>
             </div>
             <div className="paginacion">
                 <button className="paginacion-btn" onClick={prevPage}>Anterior</button>
-                <span className="paginacion-text">Registros del {currentPage+1} al {currentPage+5}</span>
+                <span className="paginacion-text">Registros del {currentPage + 1} al {currentPage + numero_tabla}</span>
                 <button className="paginacion-btn" onClick={nextPage}>Siguiente</button>
             </div>
-            <Table striped bordered hover className="tablaUsuarios">
+            <Table striped bordered hover responsive className="tablaUsuarios">
                 <thead className="tablaUsuarios-head">
                     <tr>
                         <th scope="col">#</th>
@@ -125,9 +130,6 @@ export function Admin(props) {
                     {lisItems}
                 </tbody>
             </Table>
-            <div className="agregar-wrapper">
-                <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus}/>Agregar</button>
-            </div>
             <ModalUsuarios show={show} setShow={setShow}/>
         </div>
     )

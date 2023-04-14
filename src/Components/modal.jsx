@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export function ModalUsuarios({ show, setShow }) {
+export function ModalUsuarios({ show, setShow}) {
 
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
@@ -16,13 +16,23 @@ export function ModalUsuarios({ show, setShow }) {
     }
 
     const handleSave = e => {
+        console.log("este es el rol",role)
+
+        let superUser=false;
+        let staff=false;
+        if(role == 1){
+            superUser=true
+        }else if(role == 2){
+            staff=true
+        }
+        
         let data = {
             "password": password,
             "last_login": null,
-            "is_superuser": role === 1 ? true : false,
+            "is_superuser": superUser,
             "first_name": "",
             "last_name": "",
-            "is_staff": role === 2 ? true : false,
+            "is_staff": staff,
             "is_active": true,
             "username": usuario,
             "email": correo,
@@ -52,6 +62,7 @@ export function ModalUsuarios({ show, setShow }) {
             });
 
         setShow(false);
+        window.location.reload(true);
     }
 
     return (
@@ -67,8 +78,8 @@ export function ModalUsuarios({ show, setShow }) {
                     <input type="text" placeholder='Usuario' onChange={e => { setUsuario(e.target.value) }} />
                     <input type="email" placeholder='Correo' onChange={e => { setCorreo(e.target.value) }} />
                     <input type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
-                    <select name="select" defaultValue={role} onChange={e => { setRole(e.target.value) }}>
-                        <option value={1} >Administrador</option>
+                    <select name="select" defaultValue={role} onChange={e => { console.log("valor elejido",e.target.value); setRole(e.target.value) }}>
+                        <option value={1}>Administrador</option>
                         <option value={2}>Staff</option>
                         <option value={3}>Estudiante</option>
                     </select>

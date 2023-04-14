@@ -7,7 +7,6 @@
 .page .navigationBar {
   width: 100%;
   height: 15%;
-  min-width: 610px;
   background: linear-gradient(90deg, #002C6E, #AE0732);
   display: flex;
   justify-content: space-between;
@@ -55,11 +54,17 @@
 }
 
 @media (max-width: 782px) {
+  .page .navigationBar .usuario {
+    font-size: 1em;
+  }
+  .page .navigationBar .usuario img {
+    height: 40px;
+  }
   .page .navigationBar .botones {
     gap: 20px;
   }
   .page .navigationBar .botones .btn {
-    font-size: x-large;
+    font-size: 1em;
   }
   .page .navigationBar .botones .btn p {
     display: none;
