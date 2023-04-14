@@ -34,6 +34,10 @@ export function Admin(props) {
         usuarioFiltrado()
     }, [currentPage])
 
+    useEffect(() => {
+        usuarioFiltrado()
+    }, [search])
+
     // const buscar = async e => {
     //     let usuarios = await fetch('http://127.0.0.1:8000/api/usuario/')
     //         .then(data => data.json())
@@ -51,7 +55,12 @@ export function Admin(props) {
         if (search.length === 0)
             return setFiltrado(usuarios.slice(currentPage, currentPage + numero_tabla));
 
-        const filtrados = usuarios.filter(element => element.username.includes(search));
+        const filtrados = usuarios.filter(element => 
+            element.username.includes(search) || 
+            element.nombre.includes(search) ||
+            element.email.includes(search) ||
+            element.id === search
+            );
         return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
     }
 
