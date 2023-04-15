@@ -51,8 +51,8 @@ export function ModalUsuarios({ show, setShow }) {
         })
             .then(res => res.json())
             .then(response => {
-                if (response.hasOwnProperty('username') && response.username[0] === "user with this Nombre de usuario already exists.") {
-                    alert("usuario repetido")
+                if (response.hasOwnProperty('username') && response.username[0] === "Este usuario ya existe") {
+                    alert("Este usuario ya existe")
                 } else if (response.hasOwnProperty('email') && response.email[0] === "Este correo electrónico ya existe") {
                     alert("Este correo electrónico ya existe")
                 } else {
