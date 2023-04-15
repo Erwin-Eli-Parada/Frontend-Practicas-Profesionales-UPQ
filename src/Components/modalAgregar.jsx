@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
 
-export function ModalUsuarios({ show, setShow}) {
+export function ModalUsuarios({ show, setShow }) {
 
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
@@ -17,16 +17,16 @@ export function ModalUsuarios({ show, setShow}) {
     }
 
     const handleSave = e => {
-        console.log("este es el rol",role)
+        console.log("este es el rol", role)
 
-        let superUser=false;
-        let staff=false;
-        if(role == 1){
-            superUser=true
-        }else if(role == 2){
-            staff=true
+        let superUser = false;
+        let staff = false;
+        if (role == 1) {
+            superUser = true
+        } else if (role == 2) {
+            staff = true
         }
-        
+
         let data = {
             "password": password,
             "last_login": null,
@@ -48,22 +48,20 @@ export function ModalUsuarios({ show, setShow}) {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json())
-            .catch(error => console.log(error))
+        })
+            .then(res => res.json())
             .then(response => {
-                let alerta="";
-                if(response.hasOwnProperty('username') && response.username[0]==="user with this Nombre de usuario already exists."){
+                if (response.hasOwnProperty('username') && response.username[0] === "user with this Nombre de usuario already exists.") {
                     alert("usuario repetido")
+                } else if (response.hasOwnProperty('email') && response.email[0] === "Este correo electrónico ya existe") {
+                    alert("Este correo electrónico ya existe")
+                } else {
+                    console.log('Success:', response)
+                    setShow(false);
+                    window.location.reload(true);
                 }
-                if(response.hasOwnProperty('email') && response.email[0]==="user with this Correo Electronico already exists."){
-                    alert("email repetido")
-                }
-                console.log('Success:', response)
-                return alerta;
-            });
-
-        setShow(false);
-        window.location.reload(true);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -79,7 +77,7 @@ export function ModalUsuarios({ show, setShow}) {
                     <input className='modal-body-input' type="text" placeholder='Usuario' onChange={e => { setUsuario(e.target.value) }} />
                     <input className='modal-body-input' type="email" placeholder='Correo' onChange={e => { setCorreo(e.target.value) }} />
                     <input className='modal-body-input' type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
-                    <select className='modal-body-input' name="select" defaultValue={role} onChange={e => { console.log("valor elejido",e.target.value); setRole(e.target.value) }}>
+                    <select className='modal-body-input' name="select" defaultValue={role} onChange={e => { console.log("valor elejido", e.target.value); setRole(e.target.value) }}>
                         <option value={1}>Administrador</option>
                         <option value={2}>Staff</option>
                         <option value={3}>Estudiante</option>

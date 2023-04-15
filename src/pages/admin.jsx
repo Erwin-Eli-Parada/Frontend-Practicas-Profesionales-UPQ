@@ -80,7 +80,11 @@ export function Admin(props) {
             <td>{element.is_superuser ? "Administrador" : element.is_staff ? "Staff" : "Estudiante"}</td>
             <td className="fila-botones">
                 <button className="editar" onClick={e => {setUsuario(element); setShow2(true)}}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                <button className="eliminar"><FontAwesomeIcon icon={faTrash} /></button>
+                <button className="eliminar" onClick={()=>{
+                    fetch("http://127.0.0.1:8000/api/usuario/"+element.id+"/", { method: 'DELETE' })
+                    .then(() => {alert("Borrado con exito"); window.location.reload(true);})
+                    .catch(error => console.log(error));
+                }}><FontAwesomeIcon icon={faTrash} /></button>
             </td>
         </tr>
     );
