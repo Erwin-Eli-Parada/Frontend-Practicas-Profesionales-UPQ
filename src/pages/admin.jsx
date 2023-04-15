@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
-import { ModalUsuarios } from "../Components/modal";
+import { ModalUsuarios } from "../Components/modalAgregar";
+import { ModalEditar } from "../Components/modalEditar";
 import "../styles/admin.css";
 
 export function Admin(props) {
@@ -13,6 +14,8 @@ export function Admin(props) {
     const [search, setSearch] = useState('');
     const [filtrado, setFiltrado] = useState([]);
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [usuario, setUsuario] = useState({});
 
     const numero_tabla = 9; //numero de registros a ver en la tabla
 
@@ -76,7 +79,7 @@ export function Admin(props) {
             <td>{element.email}</td>
             <td>{element.is_superuser ? "Administrador" : element.is_staff ? "Staff" : "Estudiante"}</td>
             <td className="fila-botones">
-                <button className="editar"><FontAwesomeIcon icon={faPenToSquare} /></button>
+                <button className="editar" onClick={e => {setUsuario(element); setShow2(true)}}><FontAwesomeIcon icon={faPenToSquare} /></button>
                 <button className="eliminar"><FontAwesomeIcon icon={faTrash} /></button>
             </td>
         </tr>
@@ -140,6 +143,7 @@ export function Admin(props) {
                 </tbody>
             </Table>
             <ModalUsuarios show={show} setShow={setShow}/>
+            <ModalEditar show={show2} setShow={setShow2} elemento={usuario}/>
         </div>
     )
 }
