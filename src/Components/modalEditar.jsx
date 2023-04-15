@@ -10,8 +10,10 @@ export function ModalEditar({ show, setShow, elemento}) {
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState(1);
+    const [id, setId] = useState(0);
 
     useEffect(() => {
+        setId(elemento.id)
         setNombre(elemento.nombre);
         setUsuario(elemento.username);
         setCorreo(elemento.email);
@@ -49,8 +51,8 @@ export function ModalEditar({ show, setShow, elemento}) {
             "user_permissions": []
         }
 
-        fetch("http://127.0.0.1:8000/api/usuario/", {
-            method: 'POST', // or 'PUT'
+        fetch("http://127.0.0.1:8000/api/usuario/"+id+"/", {
+            method: 'PUT', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json'
