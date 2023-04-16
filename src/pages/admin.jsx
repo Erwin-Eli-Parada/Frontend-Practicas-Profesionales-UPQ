@@ -118,7 +118,7 @@ export function Admin(props) {
 
     return (
         <div className="principal">
-            <h1 className="tituloPagina">Administración</h1>
+            <h1 className="tituloPagina">Administración de usuarios</h1>
             <div className="cabecera-wrapper">
                 <div className="search">
                     <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>

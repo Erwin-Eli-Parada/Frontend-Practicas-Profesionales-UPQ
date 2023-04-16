@@ -58,21 +58,18 @@ export function ModalEditar({ show, setShow, elemento}) {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .catch(error => console.log(error))
-            .then(response => {
-                let alerta="";
-                if(response.hasOwnProperty('username') && response.username[0]==="user with this Nombre de usuario already exists."){
-                    alert("usuario repetido")
-                }
-                if(response.hasOwnProperty('email') && response.email[0]==="user with this Correo Electronico already exists."){
-                    alert("email repetido")
-                }
+        .then(response => {
+            if (response.hasOwnProperty('username') && response.username[0] === "Este usuario ya existe") {
+                alert("Este usuario ya existe")
+            } else if (response.hasOwnProperty('email') && response.email[0] === "Este correo electrónico ya existe") {
+                alert("Este correo electrónico ya existe")
+            } else {
                 console.log('Success:', response)
-                return alerta;
-            });
-
-        setShow(false);
-        window.location.reload(true);
+                setShow(false);
+                window.location.reload(true);
+            }
+        })
+        .catch(error => console.log(error));
     }
 
     return (
