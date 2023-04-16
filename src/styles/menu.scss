@@ -68,15 +68,16 @@
     .page{
         .navigationBar{
             .usuario{
-                font-size: 1em;
+                font-size: .6em;
                 img{
                     height: 40px;
                 }
             }
             .botones{
-                gap: 20px;
+                gap: 5px;
                 .btn{
-                    font-size: 1em;
+                    font-size: .5em;
+                    width: 10%;
                     p{
                         display: none;
                     }
