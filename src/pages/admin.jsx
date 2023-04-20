@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { Menu } from "../Components/menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass,faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
 import { ModalUsuarios } from "../Components/modalAgregar";
 import { ModalEditar } from "../Components/modalEditar";
 import "../styles/admin.css";
+import { MainContext } from "../contexts/mainContext";
+import { ModalHistorial } from "../Components/modalHistorial";
 
 export function Admin(props) {
 
@@ -15,7 +17,10 @@ export function Admin(props) {
     const [filtrado, setFiltrado] = useState([]);
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
     const [usuario, setUsuario] = useState({});
+
+    const contexto = useContext(MainContext)
 
     const numero_tabla = 9; //numero de registros a ver en la tabla
 
@@ -58,12 +63,12 @@ export function Admin(props) {
         if (search.length === 0)
             return setFiltrado(usuarios.slice(currentPage, currentPage + numero_tabla));
 
-        const filtrados = usuarios.filter(element => 
-            element.username.includes(search) || 
+        const filtrados = usuarios.filter(element =>
+            element.username.includes(search) ||
             element.nombre.includes(search) ||
             element.email.includes(search) ||
             element.id === search
-            );
+        );
         return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
     }
 
@@ -79,11 +84,32 @@ export function Admin(props) {
             <td>{element.email}</td>
             <td>{element.is_superuser ? "Administrador" : element.is_staff ? "Staff" : "Estudiante"}</td>
             <td className="fila-botones">
-                <button className="editar" onClick={e => {setUsuario(element); setShow2(true)}}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                <button className="eliminar" onClick={()=>{
-                    fetch("http://127.0.0.1:8000/api/usuario/"+element.id+"/", { method: 'DELETE' })
-                    .then(() => {alert("Borrado con exito"); window.location.reload(true);})
-                    .catch(error => console.log(error));
+                <button className="editar" onClick={e => { setUsuario(element); setShow2(true) }}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                <button className="eliminar" onClick={() => {
+
+                    let rol = element.is_superuser ? 1 : element.is_staff ? 2 : 3
+
+                    let data = {
+                        "id_usuario": element.id,
+                        "username": element.username,
+                        "email": element.email,
+                        "nombre": element.nombre,
+                        "password": element.password,
+                        "rol": rol,
+                        "usuario_elim": contexto.usuario
+                    }
+
+                    fetch("http://127.0.0.1:8000/api/historial/", {
+                        method: 'POST', // or 'PUT'
+                        body: JSON.stringify(data), // data can be `string` or {object}!
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(
+                        fetch("http://127.0.0.1:8000/api/usuario/" + element.id + "/", { method: 'DELETE' })
+                            .then(() => { alert("Borrado con exito"); window.location.reload(true); })
+                            .catch(error => console.log(error))
+                    )
                 }}><FontAwesomeIcon icon={faTrash} /></button>
             </td>
         </tr>
@@ -116,6 +142,10 @@ export function Admin(props) {
         setShow(true)
     }
 
+    const mostrar2 = e => {
+        setShow3(true)
+    }
+
     return (
         <div className="principal">
             <h1 className="tituloPagina">Administración de usuarios</h1>
@@ -124,7 +154,10 @@ export function Admin(props) {
                     <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
                     <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                 </div>
-                <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>
+                <div style={{display:"flex",gap:"5px"}}>
+                    <button className="agregar" onClick={mostrar2}><FontAwesomeIcon icon={faClockRotateLeft} /><p>Historial</p></button>
+                    <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>
+                </div>
             </div>
             <div className="paginacion">
                 <button className="paginacion-btn" onClick={prevPage}>Anterior</button>
@@ -146,8 +179,9 @@ export function Admin(props) {
                     {lisItems}
                 </tbody>
             </Table>
-            <ModalUsuarios show={show} setShow={setShow}/>
-            <ModalEditar show={show2} setShow={setShow2} elemento={usuario}/>
+            <ModalUsuarios show={show} setShow={setShow} />
+            <ModalEditar show={show2} setShow={setShow2} elemento={usuario} />
+            <ModalHistorial show={show3} setShow={setShow3}/>
         </div>
     )
 }
