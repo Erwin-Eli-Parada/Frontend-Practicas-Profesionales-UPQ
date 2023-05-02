@@ -43,7 +43,13 @@ export function Datos(props){
             return setFiltrado(datos.slice(currentPage, currentPage + numero_tabla));
         
         const filtrados = datos.filter(element => 
-            element.nombre.includes(search)
+            element.nombre.includes(search) ||
+            element.correo.includes(search) ||
+            element.correo_institucional.includes(search) ||
+            element.id_practica.id_empresa.nombre_empresa.includes(search)  ||
+            element.id_practica.nombre_proyecto.includes(search) ||
+            element.id_practica.id_asesor.nombre.includes(search) ||
+            element.id_practica.id_asesor_ext.nombre_asesor_ext.includes(search) 
         );
 
         return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
