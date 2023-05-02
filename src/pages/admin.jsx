@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 // import { Menu } from "../Components/menu";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faMagnifyingGlass,faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { Table } from "react-bootstrap";
 import { ModalUsuarios } from "../Components/modalAgregar";
 import { ModalEditar } from "../Components/modalEditar";
-import "../styles/admin.css";
 import { MainContext } from "../contexts/mainContext";
 import { ModalHistorial } from "../Components/modalHistorial";
+import { Table } from "react-bootstrap";
+import "../styles/admin.css";
 
 export function Admin(props) {
 
@@ -15,7 +15,7 @@ export function Admin(props) {
     const [currentPage, setCurrentPage] = useState(0);
     const [search, setSearch] = useState('');
     const [filtrado, setFiltrado] = useState([]);
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);  //Show 1 modal agregar, Show 2 modal editar, Show 3 modal historial
     const [show2, setShow2] = useState(false);
     const [show3, setShow3] = useState(false);
     const [usuario, setUsuario] = useState({});

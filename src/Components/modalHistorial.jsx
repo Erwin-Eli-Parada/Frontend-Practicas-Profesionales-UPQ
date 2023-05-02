@@ -9,6 +9,7 @@ export function ModalHistorial({ show, setShow }) {
     const [registro, setRegistro] = useState([])
 
     useEffect(() => {
+        console.log("registro")
         const execute = async () => {
             const registros = await fetch('http://127.0.0.1:8000/api/historial/')
                 .then(data => data.json())
@@ -17,9 +18,8 @@ export function ModalHistorial({ show, setShow }) {
                 })
             setRegistro(registros)
         };
-        if(show)
-            execute();
-    }, show);
+        execute();
+    },[show]);
 
     const lisItems = registro.map(element =>
         <tr key={element.id}>
