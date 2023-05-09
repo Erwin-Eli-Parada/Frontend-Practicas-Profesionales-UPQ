@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
+import { ModalAgregarArchivo} from '../Components/modalAgregarArchivo';
 import "../styles/admin.css";
 
 export function Datos(props){
@@ -178,7 +179,7 @@ export function Datos(props){
                     {listItems}
                 </tbody>
             </Table>
-            {/* <ModalUsuarios show={show} setShow={setShow} /> */}
+            <ModalAgregarArchivo show={show} setShow={setShow} />
         </div>
     )
 }
