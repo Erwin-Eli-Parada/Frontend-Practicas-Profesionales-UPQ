@@ -1,0 +1,107 @@
+.principal {
+    padding: 0 30px;
+
+    h1 {
+        margin: 10px 0;
+    }
+
+    .cabecera-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .search {
+            margin: 10px 0;
+            width: 100%;
+
+            &-input {
+                padding: 2px;
+                width: 25%;
+                border-radius: 5px;
+                border-width: 1px;
+                min-width: 120px;
+            }
+
+            .busqueda {
+                padding: 1px 6px;
+                background-color: transparent;
+                border: none;
+                font-size: larger;
+            }
+        }
+
+        .agregar {
+            background-color: #4188f2;
+            padding: 10px 15px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .paginacion {
+        margin: 10px 0 5px 0;
+
+        &-btn {
+            background-color: transparent;
+            border: none;
+            font-size: small;
+            text-decoration: underline black;
+
+            &:hover {
+                color: blue;
+                text-decoration: underline blue;
+            }
+        }
+
+        &-text {
+            font-size: small;
+            margin: 0 10px;
+        }
+    }
+
+    .tablaUsuarios {
+        &-body {
+            .botonEditar {
+                padding: .7%;
+                .editar {
+                    background-color: #367ee9;
+                    border: none;
+                    border-radius: 5px;
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:650px) {
+    .principal {
+        .tablaUsuarios {
+            &-body {
+                .editar {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:782px) {
+    .principal {
+        .cabecera-wrapper {
+            .agregar {
+                p {
+                    display: none;
+                }
+            }
+        }
+    }
+}

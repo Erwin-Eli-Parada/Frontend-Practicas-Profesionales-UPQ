@@ -1,32 +1,39 @@
 import React, { useEffect, useState } from "react";
-// import { MainContext } from "../contexts/mainContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMagnifyingGlass, faCheckToSlot } from '@fortawesome/free-solid-svg-icons';
 import { Table } from "react-bootstrap";
-import { ModalAgregarArchivo} from '../Components/modalAgregarArchivo';
-import "../styles/admin.css";
+import { ModalAgregarArchivo } from '../Components/modalAgregarArchivo';
+import "../styles/datos.css";
+import { ModalEncuestas } from "../Components/modalEncuestas";
 
-export function Datos(props){
+export function Datos(props) {
     const [datos, setDatos] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
+    const [total, setTotal] = useState(0);
+
     const [search, setSearch] = useState('');
     const [filtrado, setFiltrado] = useState([]);
+    
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [alumno, setAlumno] = useState("1");
+    
 
     // const contexto = useContext(MainContext);
 
-    const numero_tabla = 9;
+    const numero_tabla = 10;
 
     useEffect(() => {
         const execute = async () => {
             const datos = await fetch('http://127.0.0.1:8000/datos/alumno/')
-            .then(data => data.json())
-            .catch(e => {
-                alert('servidor no disponible')
-            })
+                .then(data => data.json())
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
             console.log(datos)
             setDatos(datos)
             setFiltrado(datos.slice(currentPage, currentPage + numero_tabla))
+            setTotal(datos.length)
         };
         execute();
     }, []);
@@ -40,19 +47,21 @@ export function Datos(props){
     }, [search]);
 
     const usuarioFiltrado = () => {
-        if (search.length === 0)
+        if (search.length === 0) {
+            setTotal(datos.length)
             return setFiltrado(datos.slice(currentPage, currentPage + numero_tabla));
-        
-        const filtrados = datos.filter(element => 
-            element.nombre.includes(search) ||
-            element.correo.includes(search) ||
-            element.correo_institucional.includes(search) ||
-            element.id_practica.id_empresa.nombre_empresa.includes(search)  ||
-            element.id_practica.nombre_proyecto.includes(search) ||
-            element.id_practica.id_asesor.nombre.includes(search) ||
-            element.id_practica.id_asesor_ext.nombre_asesor_ext.includes(search) 
-        );
+        }
 
+        const filtrados = datos.filter(element =>
+            element.nombre.toLowerCase().includes(search.toLowerCase()) ||
+            element.correo.toLowerCase().includes(search.toLowerCase()) ||
+            element.correo_institucional.toLowerCase().includes(search.toLowerCase()) ||
+            element.id_practica.id_empresa.nombre_empresa.includes(search) ||
+            element.id_practica.nombre_proyecto.toLowerCase().includes(search) ||
+            element.id_practica.id_asesor.nombre.toLowerCase().includes(search) ||
+            element.id_practica.id_asesor_ext.nombre_asesor_ext.toLowerCase().includes(search)
+        );
+        setTotal(filtrados.length)
         return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
     }
 
@@ -60,13 +69,13 @@ export function Datos(props){
     console.log("Pagina actual", currentPage)
     console.log("busqueda", search.length)
 
-    const listItems = filtrado.map(element => 
+    const listItems = filtrado.map(element =>
         <tr key={element.matricula}>
             <td>{element.id_practica.id_practica.id_practica}</td>
             <td>{element.id_practica.id_practica.tipo_proceso}</td>
             <td>{element.id_practica.id_practica.estatus_proceso}</td>
-            <td>{element.id_practica.id_practica.comentarios_status}</td>
-            <td>{element.id_practica.id_practica.carta_recibida?"Si":"No"}</td>
+            <td>{element.id_practica.id_practica.comentarios_status === "nan" ? "" : element.id_practica.id_practica.comentarios_status}</td>
+            <td>{element.id_practica.id_practica.carta_recibida ? "Si" : "No"}</td>
             <td>{element.matricula}</td>
             <td>{element.nombre}</td>
             <td>{element.nss}</td>
@@ -77,22 +86,25 @@ export function Datos(props){
             <td>{element.correo}</td>
             <td>{element.correo_institucional}</td>
             <td>{element.id_practica.fecha_solicitud}</td>
-            <td>{element.id_practica.metodo_conocimiento}</td>
+            <td>{element.id_practica.metodo_conocimiento === "nan" ? "" : element.id_practica.metodo_conocimiento}</td>
             <td>{element.id_practica.id_empresa.nombre_empresa}</td>
             <td>{element.id_practica.id_empresa.sector}</td>
             <td>{element.id_practica.id_empresa.giro}</td>
             <td>{element.id_practica.id_empresa.tamanio}</td>
-            <td>{element.id_practica.nombre_proyecto}</td>
+            <td>{element.id_practica.nombre_proyecto === "nan" ? "" : element.id_practica.nombre_proyecto}</td>
             <td>{element.id_practica.id_asesor.nombre}</td>
             <td>{element.id_practica.id_asesor_ext.nombre_asesor_ext}</td>
-            <td>{element.id_practica.calificacion}</td>
-            <td>{element.id_practica.comentarios_finales}</td>
-            <td>{element.id_practica.id_practica.carta_liberacion?"Si":"No"}</td>
-            <td>{element.id_practica.id_practica.reporte_final?"Si":"No"}</td>
-            <td>{element.id_practica.id_practica.id_practica.avance_1?"Si":"No"}</td>
-            <td>{element.id_practica.id_practica.id_practica.avance_2?"Si":"No"}</td>
+            <td>{element.id_practica.calificacion === "0.00" ? "" : element.id_practica.calificacion}</td>
+            <td>{element.id_practica.comentarios_finales === "nan" ? "" : element.id_practica.comentarios_finales}</td>
+            <td>{element.id_practica.id_practica.carta_liberacion ? "Si" : "No"}</td>
+            <td>{element.id_practica.id_practica.reporte_final ? "Si" : "No"}</td>
+            <td>{element.id_practica.id_practica.id_practica.avance_1 ? "Si" : "No"}</td>
+            <td>{element.id_practica.id_practica.id_practica.avance_2 ? "Si" : "No"}</td>
             <td>{element.id_practica.id_empresa.correo}</td>
             <td>{element.id_practica.id_empresa.telefono}</td>
+            <td className="botonEditar">
+                <button className="editar" onClick={e => { setAlumno(element.matricula); setShow2(true) }}><FontAwesomeIcon icon={faCheckToSlot} /></button>
+            </td>
         </tr>
     );
 
@@ -108,7 +120,7 @@ export function Datos(props){
     }
 
     const nextPage = e => {
-        if (filtrado.length >= currentPage + numero_tabla)
+        if (total >= currentPage + numero_tabla)
             setCurrentPage(currentPage + numero_tabla);
     }
 
@@ -121,8 +133,8 @@ export function Datos(props){
     const mostrar = e => {
         setShow(true)
     }
-    
-    return(
+
+    return (
         <div className="principal">
             <h1 className="tituloPagina">Datos de las residencias</h1>
             <div className="cabecera-wrapper">
@@ -130,13 +142,22 @@ export function Datos(props){
                     <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
                     <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                 </div>
-                <div style={{display:"flex",gap:"5px"}}>
+                <div className="filtros">
+                    <label for="tipoSelect">Tipo de proceso</label>
+                    <select className='selector' name="tipoSelect" defaultValue="Todos">
+                        <option value={"Todos"}>Todos</option>
+                        <option value={"Estadia"}>Estadia</option>
+                        <option value={"Estadia I"}>Estadia I</option>
+                        <option value={"Estadia II"}>Estadia II</option>
+                    </select>
+                </div>
+                <div style={{ display: "flex", gap: "5px" }}>
                     <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>
                 </div>
             </div>
             <div className="paginacion">
                 <button className="paginacion-btn" onClick={prevPage}>Anterior</button>
-                <span className="paginacion-text">Registros del {currentPage + 1} al {currentPage + numero_tabla}</span>
+                <span className="paginacion-text">Registros del {currentPage + 1} al {currentPage + numero_tabla} de {total}</span>
                 <button className="paginacion-btn" onClick={nextPage}>Siguiente</button>
             </div>
             <Table striped bordered hover responsive className="tablaUsuarios">
@@ -173,6 +194,7 @@ export function Datos(props){
                         <th scope="col">Avance 2</th>
                         <th scope="col">Correo RH Empresa</th>
                         <th scope="col">Telefono RH Empresa</th>
+                        <th scope="col">Encuesta</th>
                     </tr>
                 </thead>
                 <tbody className="tablaUsuarios-body">
@@ -180,6 +202,7 @@ export function Datos(props){
                 </tbody>
             </Table>
             <ModalAgregarArchivo show={show} setShow={setShow} />
+            <ModalEncuestas show={show2} setShow={setShow2} alumno={alumno} />
         </div>
     )
 }
