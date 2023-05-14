@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMagnifyingGlass, faCheckToSlot } from '@fortawesome/free-solid-svg-icons';
-import { Table } from "react-bootstrap";
+import { Table, Form } from "react-bootstrap";
 import { ModalAgregarArchivo } from '../Components/modalAgregarArchivo';
 import "../styles/datos.css";
 import { ModalEncuestas } from "../Components/modalEncuestas";
@@ -13,11 +13,17 @@ export function Datos(props) {
 
     const [search, setSearch] = useState('');
     const [filtrado, setFiltrado] = useState([]);
-    
+    const [tipo, setTipo] = useState("Todos");
+    const [estatus, setEstatus] = useState("Todos");
+    const [carrera, setCarrera] = useState("Todos");
+    const [genero, setGenero] = useState("Todos");
+    const [giro, setGiro] = useState("Todos");
+    const [tamanio, setTamanio] = useState("Todos");
+    const [generacion, setGeneracion] = useState(0);
+
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
     const [alumno, setAlumno] = useState("1");
-    
 
     // const contexto = useContext(MainContext);
 
@@ -38,29 +44,62 @@ export function Datos(props) {
         execute();
     }, []);
 
+    //efecto para el filtrado
     useEffect(() => {
         usuarioFiltrado()
-    }, [currentPage]);
+    }, [currentPage, search, tipo, estatus, carrera, genero, generacion, giro, tamanio]);
 
-    useEffect(() => {
-        usuarioFiltrado()
-    }, [search]);
-
+    //función del filtrado por busqueda
     const usuarioFiltrado = () => {
-        if (search.length === 0) {
-            setTotal(datos.length)
-            return setFiltrado(datos.slice(currentPage, currentPage + numero_tabla));
+        let filtrados = [...datos]
+        if (carrera !== "Todos" || estatus !== "Todos" || tipo !== "Todos" || genero !== "Todos" || generacion != 0 || giro !== "Todos" || tamanio !== "Todos") {
+
+            if (tipo !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.id_practica.id_practica.tipo_proceso.toLowerCase()===tipo.toLowerCase()
+                );
+            if (estatus !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.id_practica.id_practica.estatus_proceso.toLowerCase().includes(estatus.toLowerCase())
+                );
+            if (carrera !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.carrera.toLowerCase() === carrera.toLowerCase()
+                );
+            if (genero !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.genero.toLowerCase().includes(genero.toLowerCase())
+                );
+            if (generacion != 0)
+                filtrados = filtrados.filter(element =>
+                    element.generacion == generacion
+                );
+            if (giro !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.id_practica.id_empresa.giro.toLowerCase().includes(giro.toLowerCase())
+                );
+            if (tamanio !== "Todos")
+                filtrados = filtrados.filter(element =>
+                    element.id_practica.id_empresa.tamanio.toLowerCase() === tamanio.toLowerCase()
+                );
         }
 
-        const filtrados = datos.filter(element =>
+        if (search.length === 0) {
+            setTotal(filtrados.length)
+            return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
+        }
+
+        filtrados = filtrados.filter(element =>
             element.nombre.toLowerCase().includes(search.toLowerCase()) ||
             element.correo.toLowerCase().includes(search.toLowerCase()) ||
+            element.grupo.toLowerCase().includes(search.toLowerCase()) ||
             element.correo_institucional.toLowerCase().includes(search.toLowerCase()) ||
             element.id_practica.id_empresa.nombre_empresa.includes(search) ||
             element.id_practica.nombre_proyecto.toLowerCase().includes(search) ||
             element.id_practica.id_asesor.nombre.toLowerCase().includes(search) ||
             element.id_practica.id_asesor_ext.nombre_asesor_ext.toLowerCase().includes(search)
         );
+
         setTotal(filtrados.length)
         return setFiltrado(filtrados.slice(currentPage, currentPage + numero_tabla));
     }
@@ -138,18 +177,84 @@ export function Datos(props) {
         <div className="principal">
             <h1 className="tituloPagina">Datos de las residencias</h1>
             <div className="cabecera-wrapper">
-                <div className="search">
-                    <input type="text" className="search-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
+                <div className="search2">
+                    <input type="text" className="search2-input" placeholder="search" onChange={handleChangeSearch} onKeyDown={handleKeyDown}></input>
                     <button className="busqueda" onClick={usuarioFiltrado}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                 </div>
                 <div className="filtros">
-                    <label for="tipoSelect">Tipo de proceso</label>
-                    <select className='selector' name="tipoSelect" defaultValue="Todos">
-                        <option value={"Todos"}>Todos</option>
-                        <option value={"Estadia"}>Estadia</option>
-                        <option value={"Estadia I"}>Estadia I</option>
-                        <option value={"Estadia II"}>Estadia II</option>
-                    </select>
+                    <div>
+                        <label for="tipoSelect">Tipo de proceso:</label>
+                        <select className='selector' name="tipoSelect" defaultValue="Todos" onChange={e => { setTipo(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"Estadia"}>Estadia</option>
+                            <option value={"Estancia I"}>Estancia I</option>
+                            <option value={"Estancia II"}>Estancia II</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="estatusSelect">Estatus del proceso de proceso:</label>
+                        <select className='selector' name="estatusSelect" defaultValue="Todos" onChange={e => { setEstatus(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"Autorizado"}>Autorizado</option>
+                            <option value={"Concluido"}>Concluido</option>
+                            <option value={"Corregir información"}>Corregir información</option>
+                            <option value={"Rechazado"}>Rechazado</option>
+                            <option value={"Reprobado"}>Reprobado</option>
+                            <option value={"Solicitud"}>Solicitud</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="carreraSelect">Carrera:</label>
+                        <select className='selector' name="carreraSelect" defaultValue="Todos" onChange={e => { setCarrera(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"Automotriz"}>Automotriz</option>
+                            <option value={"Manufactura"}>Manufactura</option>
+                            <option value={"Mecatronica"}>Mecatronica</option>
+                            <option value={"Negocios"}>Negocios</option>
+                            <option value={"Pymes"}>PYMES</option>
+                            <option value={"Pymes ejecutiva"}>PYMES Ejecutiva</option>
+                            <option value={"Sistemas"}>Sistemas</option>
+                            <option value={"Telematica"}>Telematica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="generoSelect">Genero:</label>
+                        <select className='selector' name="generoSelect" defaultValue="Todos" onChange={e => { setGenero(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"Masculino"}>Masculino</option>
+                            <option value={"Femenino"}>Femenino</option>
+                        </select>
+                    </div>
+                    <Form.Group controlId="numberPicker" style={{ display: "flex", gap: "3px", alignItems: "center" }}>
+                        <Form.Label>Generación:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            style={{ width: "70px" }}
+                            min={0}
+                            value={generacion}
+                            onChange={e => { setGeneracion(e.target.value) }}
+                        />
+                    </Form.Group>
+                    <div>
+                        <label for="giroSelect">Giro de la empresa:</label>
+                        <select className='selector' name="giroSelect" defaultValue="Todos" onChange={e => { setGiro(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"investigacion"}>Investigación</option>
+                            <option value={"privada"}>Privada</option>
+                            <option value={"publica"}>Pública</option>
+                            <option value={"social"}>Social</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="tamanioSelect">Tamaño de la empresa:</label>
+                        <select className='selector' name="tamanioSelect" defaultValue="Todos" onChange={e => { setTamanio(e.target.value) }}>
+                            <option value={"Todos"}>Todos</option>
+                            <option value={"G"}>G</option>
+                            <option value={"M"}>M</option>
+                            <option value={"MC"}>MC</option>
+                            <option value={"P"}>P</option>
+                        </select>
+                    </div>
                 </div>
                 <div style={{ display: "flex", gap: "5px" }}>
                     <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>

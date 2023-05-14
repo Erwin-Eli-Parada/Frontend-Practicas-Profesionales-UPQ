@@ -1,41 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
-import {FormFile} from "./formularioFile";
+import { FormFile } from "./formularioFile";
 
 export function ModalAgregarArchivo({ show, setShow }) {
 
     const [files, setFiles] = useState([]);
+    const [formData, setFormData] = useState(new FormData());
 
     const handleClose = e => {
         setShow(false);
     }
 
+    useEffect(e=>{
+        console.log(files)
+    },[files]);
+
     const handleSave = e => {
 
-        let data = {}
+        formData.set("archivo", files[0]);
+        setFormData(formData);
 
-        fetch("http://127.0.0.1:8000/api/usuario/", {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        fetch("http://127.0.0.1:8000/datos/archivo/", {
+            method: 'POST',
+            body: formData
         })
             .then(res => res.json())
             .then(response => {
-                if (response.hasOwnProperty('username') && response.username[0] === "Este usuario ya existe") {
-                    alert("Este usuario ya existe")
-                } else if (response.hasOwnProperty('email') && response.email[0] === "Este correo electrónico ya existe") {
-                    alert("Este correo electrónico ya existe")
-                } else {
-                    console.log('Success:', response)
-                    setShow(false);
-                    window.location.reload(true);
-                }
+                console.log('Success:', response)
+                setShow(false);
+                window.location.reload(true);
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error.status)
+                alert("Error de archivo")
+            });
+        
+            setFormData(new FormData());
     }
 
     return (

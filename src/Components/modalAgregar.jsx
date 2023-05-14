@@ -77,7 +77,7 @@ export function ModalUsuarios({ show, setShow }) {
                     <input className='modal-body-input' type="text" placeholder='Usuario' onChange={e => { setUsuario(e.target.value) }} />
                     <input className='modal-body-input' type="email" placeholder='Correo' onChange={e => { setCorreo(e.target.value) }} />
                     <input className='modal-body-input' type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
-                    <select className='modal-body-input' name="select" defaultValue={role} onChange={e => { console.log("valor elejido", e.target.value); setRole(e.target.value) }}>
+                    <select className='modal-body-input' name="select" defaultValue={role} onChange={e => { console.log("valor elegido", e.target.value); setRole(e.target.value) }}>
                         <option value={1}>Administrador</option>
                         <option value={2}>Staff</option>
                         <option value={3}>Estudiante</option>
