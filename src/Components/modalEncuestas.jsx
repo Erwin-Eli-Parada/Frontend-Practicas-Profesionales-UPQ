@@ -4,22 +4,24 @@ import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
 import { useEffect, useState } from "react";
 
-export function ModalEncuestas({ show, setShow, alumno}) {
+export function ModalEncuestas({ show, setShow, alumno }) {
 
     const [registro, setRegistro] = useState([])
 
     useEffect(() => {
-        console.log("registro")
-        const execute = async () => {
-            const registros = await fetch('http://127.0.0.1:8000/datos/encuestaAlumno/'+alumno)
-                .then(data => data.json())
-                .catch(e => {
-                    alert('servidor no disponible')
-                })
-            setRegistro(registros)
-        };
-        execute();
-    },[show]);
+        if (alumno != "0") {
+            console.log("registro")
+            const execute = async () => {
+                const registros = await fetch('http://127.0.0.1:8000/datos/encuestaAlumno/' + alumno)
+                    .then(data => data.json())
+                    .catch(e => {
+                        alert('servidor no disponible')
+                    })
+                setRegistro(registros)
+            };
+            execute();
+        }
+    }, [show]);
 
     const lisItems = registro.map(element =>
         <tr key={element.id_encuesta}>

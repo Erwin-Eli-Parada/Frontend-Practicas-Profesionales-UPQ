@@ -23,7 +23,7 @@ export function Datos(props) {
 
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
-    const [alumno, setAlumno] = useState("1");
+    const [alumno, setAlumno] = useState("0");
 
     // const contexto = useContext(MainContext);
 
