@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
 import { useEffect, useState } from "react";
+import APIRoutes from '../functions/rutas'
 
 export function ModalEncuestas({ show, setShow, alumno }) {
 
@@ -12,7 +13,7 @@ export function ModalEncuestas({ show, setShow, alumno }) {
         if (alumno != "0") {
             console.log("registro")
             const execute = async () => {
-                const registros = await fetch('http://127.0.0.1:8000/datos/encuestaAlumno/' + alumno)
+                const registros = await fetch(APIRoutes.encuestaUrl + alumno)
                     .then(data => data.json())
                     .catch(e => {
                         alert('servidor no disponible')

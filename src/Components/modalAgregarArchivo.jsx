@@ -4,13 +4,14 @@ import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
 import { FormFile } from "./formularioFile";
 import { Form } from 'react-bootstrap';
+import APIRoutes from '../functions/rutas';
 
 export function ModalAgregarArchivo({ show, setShow }) {
 
     const [files, setFiles] = useState([]);
     const [formData, setFormData] = useState(new FormData());
     const [opcionSeleccionada, setOpcionSeleccionada] = useState('opcion1');
-    const [url, setUrl] = useState("http://127.0.0.1:8000/datos/archivo/");
+    const [url, setUrl] = useState(APIRoutes.archivoUrl);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = e => {
@@ -50,10 +51,10 @@ export function ModalAgregarArchivo({ show, setShow }) {
     const handleSeleccionarOpcion = (e) => {
         if(e.target.value==="opcion1"){
             setOpcionSeleccionada("opcion1")
-            setUrl("http://127.0.0.1:8000/datos/archivo/")
+            setUrl(APIRoutes.archivoUrl)
         }else{
             setOpcionSeleccionada("opcion2")
-            setUrl("http://127.0.0.1:8000/datos/archivoEncuesta/")
+            setUrl(APIRoutes.archivoEncuestaUrl)
         }
     };
 

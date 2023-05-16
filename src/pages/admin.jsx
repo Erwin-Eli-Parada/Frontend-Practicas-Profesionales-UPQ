@@ -8,6 +8,7 @@ import { MainContext } from "../contexts/mainContext";
 import { ModalHistorial } from "../Components/modalHistorial";
 import { Table } from "react-bootstrap";
 import "../styles/admin.css";
+import APIRoutes from '../functions/rutas'
 
 export function Admin(props) {
 
@@ -26,7 +27,7 @@ export function Admin(props) {
 
     useEffect(() => {
         const execute = async () => {
-            const usuarios = await fetch('http://127.0.0.1:8000/api/usuario/')
+            const usuarios = await fetch(APIRoutes.loginUrl)
                 .then(data => data.json())
                 .catch(e => {
                     alert('servidor no disponible')
@@ -99,14 +100,14 @@ export function Admin(props) {
                         "usuario_elim": contexto.usuario
                     }
 
-                    fetch("http://127.0.0.1:8000/api/historial/", {
+                    fetch(APIRoutes.historialUrl, {
                         method: 'POST', // or 'PUT'
                         body: JSON.stringify(data), // data can be `string` or {object}!
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(
-                        fetch("http://127.0.0.1:8000/api/usuario/" + element.id + "/", { method: 'DELETE' })
+                        fetch(APIRoutes.loginUrl + element.id + "/", { method: 'DELETE' })
                             .then(() => { alert("Borrado con exito"); window.location.reload(true); })
                             .catch(error => console.log(error))
                     )

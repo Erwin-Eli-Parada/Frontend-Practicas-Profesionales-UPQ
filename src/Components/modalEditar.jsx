@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
+import APIRoutes from '../functions/rutas'
 
 export function ModalEditar({ show, setShow, elemento}) {
 
@@ -51,7 +52,7 @@ export function ModalEditar({ show, setShow, elemento}) {
             "user_permissions": []
         }
 
-        fetch("http://127.0.0.1:8000/api/usuario/"+id+"/", {
+        fetch(APIRoutes.loginUrl+id+"/", {
             method: 'PUT', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers: {

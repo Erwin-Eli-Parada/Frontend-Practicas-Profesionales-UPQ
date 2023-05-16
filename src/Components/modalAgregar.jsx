@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "../styles/modal.css";
+import APIRoutes from '../functions/rutas';
 
 export function ModalUsuarios({ show, setShow }) {
 
@@ -42,7 +43,7 @@ export function ModalUsuarios({ show, setShow }) {
             "user_permissions": []
         }
 
-        fetch("http://127.0.0.1:8000/api/usuario/", {
+        fetch(APIRoutes.loginUrl, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers: {

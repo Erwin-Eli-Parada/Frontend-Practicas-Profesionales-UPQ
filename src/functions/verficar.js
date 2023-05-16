@@ -1,6 +1,8 @@
+import APIRoutes from './rutas'
+
 export default function verificar(usuario, password, navigate) {
 
-    fetch('http://127.0.0.1:8000/api/usuario/' + usuario + "/" + password)
+    fetch(APIRoutes.loginUrl + usuario + "/" + password)
         .then(data => data.json())
         .then(res => {
             console.log(res.id, res.is_active, res.is_superuser)

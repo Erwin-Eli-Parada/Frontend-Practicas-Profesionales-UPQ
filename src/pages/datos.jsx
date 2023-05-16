@@ -5,6 +5,7 @@ import { Table, Form } from "react-bootstrap";
 import { ModalAgregarArchivo } from '../Components/modalAgregarArchivo';
 import "../styles/datos.css";
 import { ModalEncuestas } from "../Components/modalEncuestas";
+import APIRoutes from '../functions/rutas'
 
 export function Datos(props) {
     const [datos, setDatos] = useState([]);
@@ -31,7 +32,7 @@ export function Datos(props) {
 
     useEffect(() => {
         const execute = async () => {
-            const datos = await fetch('http://127.0.0.1:8000/datos/alumno/')
+            const datos = await fetch(APIRoutes.datosUrl)
                 .then(data => data.json())
                 .catch(e => {
                     alert('servidor no disponible')
