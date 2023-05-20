@@ -185,7 +185,7 @@ export function Datos(props) {
                 <div className="filtros">
                     <div>
                         <label for="tipoSelect">Tipo de proceso:</label>
-                        <select className='selector' name="tipoSelect" defaultValue="Todos" onChange={e => { setTipo(e.target.value) }}>
+                        <select aria-label="tipoSelect" className='selector' name="tipoSelect" defaultValue="Todos" onChange={e => { setTipo(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"Estadia"}>Estadia</option>
                             <option value={"Estancia I"}>Estancia I</option>
@@ -194,7 +194,7 @@ export function Datos(props) {
                     </div>
                     <div>
                         <label for="estatusSelect">Estatus del proceso de proceso:</label>
-                        <select className='selector' name="estatusSelect" defaultValue="Todos" onChange={e => { setEstatus(e.target.value) }}>
+                        <select aria-label="estatusSelect" className='selector' name="estatusSelect" defaultValue="Todos" onChange={e => { setEstatus(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"Autorizado"}>Autorizado</option>
                             <option value={"Concluido"}>Concluido</option>
@@ -206,7 +206,7 @@ export function Datos(props) {
                     </div>
                     <div>
                         <label for="carreraSelect">Carrera:</label>
-                        <select className='selector' name="carreraSelect" defaultValue="Todos" onChange={e => { setCarrera(e.target.value) }}>
+                        <select aria-label="carreraSelect" className='selector' name="carreraSelect" defaultValue="Todos" onChange={e => { setCarrera(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"Automotriz"}>Automotriz</option>
                             <option value={"Manufactura"}>Manufactura</option>
@@ -220,7 +220,7 @@ export function Datos(props) {
                     </div>
                     <div>
                         <label for="generoSelect">Genero:</label>
-                        <select className='selector' name="generoSelect" defaultValue="Todos" onChange={e => { setGenero(e.target.value) }}>
+                        <select aria-label="generoSelect" className='selector' name="generoSelect" defaultValue="Todos" onChange={e => { setGenero(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"Masculino"}>Masculino</option>
                             <option value={"Femenino"}>Femenino</option>
@@ -234,11 +234,12 @@ export function Datos(props) {
                             min={0}
                             value={generacion}
                             onChange={e => { setGeneracion(e.target.value) }}
+                            data-testid="number-input"
                         />
                     </Form.Group>
                     <div>
                         <label for="giroSelect">Giro de la empresa:</label>
-                        <select className='selector' name="giroSelect" defaultValue="Todos" onChange={e => { setGiro(e.target.value) }}>
+                        <select aria-label="giroSelect" className='selector' name="giroSelect" defaultValue="Todos" onChange={e => { setGiro(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"investigacion"}>Investigación</option>
                             <option value={"privada"}>Privada</option>
@@ -248,7 +249,7 @@ export function Datos(props) {
                     </div>
                     <div>
                         <label for="tamanioSelect">Tamaño de la empresa:</label>
-                        <select className='selector' name="tamanioSelect" defaultValue="Todos" onChange={e => { setTamanio(e.target.value) }}>
+                        <select aria-label="tamanioSelect" className='selector' name="tamanioSelect" defaultValue="Todos" onChange={e => { setTamanio(e.target.value) }}>
                             <option value={"Todos"}>Todos</option>
                             <option value={"G"}>G</option>
                             <option value={"M"}>M</option>

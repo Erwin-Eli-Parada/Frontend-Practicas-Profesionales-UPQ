@@ -40,7 +40,7 @@ describe('<Admin>', () => {
     })
 
     test('funcionamiento boton agregar', () => {
-        const button = component.getByText("Historial");
+        const button = component.getByText("Agregar");
         fireEvent.click(button);
     })
 

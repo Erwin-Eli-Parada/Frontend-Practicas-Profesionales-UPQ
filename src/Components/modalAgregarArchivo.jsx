@@ -75,6 +75,7 @@ export function ModalAgregarArchivo({ show, setShow }) {
                             value="opcion1"
                             checked={opcionSeleccionada === 'opcion1'}
                             onChange={handleSeleccionarOpcion}
+                            aria-label="opcion1"
                         />
                         <Form.Check
                             type="radio"
@@ -83,9 +84,10 @@ export function ModalAgregarArchivo({ show, setShow }) {
                             value="opcion2"
                             checked={opcionSeleccionada === 'opcion2'}
                             onChange={handleSeleccionarOpcion}
+                            aria-label="opcion2"
                         />
                     </Form.Group>
-                    <FormFile files={files} setFiles={setFiles}></FormFile>
+                    <FormFile files={files} setFiles={setFiles} data-test-id="archivo"></FormFile>
                     <div className='cargando'>
                         {isLoading && <p>Cargando...</p>}
                     </div>
