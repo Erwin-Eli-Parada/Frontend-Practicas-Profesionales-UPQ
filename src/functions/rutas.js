@@ -8,6 +8,8 @@ class APIRoutes {
     static encuestaUrl = this.baseUrl+"datos/encuestaAlumno/"
     static archivoUrl = this.baseUrl+"datos/archivo/"
     static archivoEncuestaUrl = this.baseUrl+"datos/archivoEncuesta/"
+
+    static graficaTipoUrl = this.baseUrl+"grafico/tipo"
 }
 
 export default APIRoutes;
