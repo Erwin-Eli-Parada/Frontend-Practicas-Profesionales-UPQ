@@ -2,11 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // import { Menu } from "../Components/menu";
 import { MainContext } from "../contexts/mainContext";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, } from 'chart.js';
+import { Pie, Line} from 'react-chartjs-2';
 import APIRoutes from '../functions/rutas'
+import "../styles/dashboard.css";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title);
 
 export function Dashboard(props) {
 
@@ -64,13 +65,37 @@ export function Dashboard(props) {
             },
         ],
     }
+    const options = {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Cantidad de procesos por estatus',
+          },
+        },
+      };
 
     return (
         <div className="principal" >
             <h1 className="tituloPagina">Dashboard</h1>
             <div className="graficos">
-                <div className="grafico-container">
-                    <Pie data={data} />
+                <div className="graficos-container">
+                    <Pie data={data} options={options}/>
+                </div>
+                <div className="graficos-container">
+                    <Pie data={data} options={options}/>
+                </div>
+                <div className="graficos-container">
+                    <Pie data={data} options={options}/>
+                </div>
+                <div className="graficos-container">
+                    <Pie data={data} options={options}/>
+                </div>
+                <div className="graficos-container linea">
+                    <Line data={data} options={options}/>
+                </div>
+                <div className="graficos-container linea">
+                    <Line data={data} options={options}/>
                 </div>
             </div>
         </div >

@@ -1,0 +1,18 @@
+.principal .graficos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.principal .graficos-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.principal .graficos-container p {
+  font-weight: bold;
+  text-align: center;
+}
+.principal .graficos .linea {
+  width: 600px;
+}/*# sourceMappingURL=dashboard.css.map */

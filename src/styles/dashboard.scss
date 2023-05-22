@@ -1,0 +1,21 @@
+.principal {
+    .graficos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 20px;
+
+            p{
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+        .linea{
+            width: 600px;
+        }
+    }
+}
