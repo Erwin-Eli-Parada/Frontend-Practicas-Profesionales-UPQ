@@ -2,12 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // import { Menu } from "../Components/menu";
 import { MainContext } from "../contexts/mainContext";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler} from 'chart.js';
-import { Pie, Line} from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler, BarElement} from 'chart.js';
+import { Pie, Line, Bar} from 'react-chartjs-2';
 import APIRoutes from '../functions/rutas'
 import "../styles/dashboard.css";
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Filler);
 
 export function Dashboard(props) {
 
@@ -28,6 +28,7 @@ export function Dashboard(props) {
     const [datosTamanios, setDatosTamanios] = useState({});
     const [datosGeneracion, setDatosGeneracion] = useState([]);
     const [datosCalfTipo, setDatosCalfTipo] = useState([]);
+    const [datosGenCarrera, setDatosGenCarrera] = useState([]);
 
     useEffect(() => {
         const execute = async () => {
@@ -133,6 +134,19 @@ export function Dashboard(props) {
         execute();        
     }, []);
 
+    useEffect(() => {
+        const execute = async () => {
+            const usuarios = await fetch(APIRoutes.graficaGenCarreraUrl)
+                .then(data => data.json())
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
+            
+            setDatosGenCarrera(usuarios)
+        };
+        execute();        
+    }, []);
+
     const data = {
         labels: ['Autorizado', 'Concluido', 'Corregir Información', 'solicitud', 'Rechazado', 'Reprobado'],
         datasets: [
@@ -219,12 +233,12 @@ export function Dashboard(props) {
                 label: '# de resgitros',
                 data: [datosGeneros.hombre, datosGeneros.mujer],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -314,7 +328,7 @@ export function Dashboard(props) {
         labels: ['Estadia', 'Estancia I', 'Estancia II'],
         datasets: [
             {
-                label: '# de resgitros',
+                label: 'Calificación',
                 data: [datosCalfTipo.estadia, datosCalfTipo.estancia1, datosCalfTipo.estancia2],
                 fill: true,
                 backgroundColor: [
@@ -329,12 +343,42 @@ export function Dashboard(props) {
     }
 
     const options = {
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    color: 'rgb(255, 99, 132)'
+                }
+            }
+        },
         scales: {
           y: {
             suggestedMin: 7,
-            suggestedMax: 10
+            suggestedMax: 10,
+            title: {
+                display: true,
+                text: 'Calificación',
+            }
           },
         },
+      };
+
+      const data9 = {
+        labels: ['Automotriz', 'Manufactura', 'Mecatronica', 'Negocios', 'PYMES', 'PYMES Ejecutiva', 'Sistemas', 'Telematica'],
+        datasets: [
+          {
+            label: 'Masculino',
+            data: datosGenCarrera.hombre,
+            borderColor: 'rgba(54, 162, 235, 0.2)',
+            backgroundColor: 'rgba(54, 162, 235, 1)',
+          },
+          {
+            label: 'Femenino',
+            data: datosGenCarrera.mujer,
+            borderColor: 'rgba(255, 99, 132, 0.2)',
+            backgroundColor: 'rgba(255, 99, 132, 1)',
+          },
+        ],
       };
 
     return (
@@ -372,6 +416,10 @@ export function Dashboard(props) {
                 <div className="graficos-container linea">
                     <p>Calificacion por tipo de proceso</p>
                     <Line data={data8} options={options}/>
+                </div>
+                <div className="graficos-container linea">
+                    <p>Calificacion por tipo de proceso</p>
+                    <Bar data={data9}/>
                 </div>
             </div>
         </div >
