@@ -29,6 +29,7 @@ export function Dashboard(props) {
     const [datosGeneracion, setDatosGeneracion] = useState([]);
     const [datosCalfTipo, setDatosCalfTipo] = useState([]);
     const [datosGenCarrera, setDatosGenCarrera] = useState([]);
+    const [datosStatusCarrera, setDatosStatusCarrera] = useState([]);
 
     useEffect(() => {
         const execute = async () => {
@@ -143,6 +144,19 @@ export function Dashboard(props) {
                 })
             
             setDatosGenCarrera(usuarios)
+        };
+        execute();        
+    }, []);
+
+    useEffect(() => {
+        const execute = async () => {
+            const usuarios = await fetch(APIRoutes.graficaStatusCarreraUrl)
+                .then(data => data.json())
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
+            
+            setDatosStatusCarrera(usuarios)
         };
         execute();        
     }, []);
@@ -381,6 +395,59 @@ export function Dashboard(props) {
         ],
       };
 
+      const data10 = {
+        labels: ['Automotriz', 'Manufactura', 'Mecatronica', 'Negocios', 'PYMES', 'PYMES Ejecutiva', 'Sistemas', 'Telematica'],
+        datasets: [
+          {
+            label: 'Autorizado',
+            data: datosStatusCarrera.autorizado,
+            borderColor: 'rgba(54, 162, 235, 0.2)',
+            backgroundColor: 'rgba(54, 162, 235, 1)',
+          },
+          {
+            label: 'Concluido',
+            data: datosStatusCarrera.concluido,
+            borderColor: 'rgba(255, 99, 132, 0.2)',
+            backgroundColor: 'rgba(255, 99, 132, 1)',
+          },
+          {
+            label: 'Corregir información',
+            data: datosStatusCarrera.corregir_info,
+            borderColor: 'rgba(255, 206, 86, 0.2)',
+            backgroundColor: 'rgba(255, 206, 86, 1)',
+          },
+          {
+            label: 'Rechazado',
+            data: datosStatusCarrera.rechazado,
+            borderColor: 'rgba(75, 192, 192, 0.2)',
+            backgroundColor: 'rgba(75, 192, 192, 1)',
+          },
+          {
+            label: 'Reprobado',
+            data: datosStatusCarrera.reprobado,
+            borderColor: 'rgba(153, 102, 255, 0.2)',
+            backgroundColor: 'rgba(153, 102, 255, 1)',
+          },
+          {
+            label: 'Solicitud',
+            data: datosStatusCarrera.solicitud,
+            borderColor: 'rgba(255, 159, 64, 0.2)', 
+            backgroundColor: 'rgba(255, 159, 64, 1)',
+          },
+        ],
+      };
+
+      const options2 = {
+        scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true,
+            },
+          },
+      }
+
     return (
         <div className="principal" >
             <h1 className="tituloPagina">Dashboard</h1>
@@ -420,6 +487,10 @@ export function Dashboard(props) {
                 <div className="graficos-container linea">
                     <p>Calificacion por tipo de proceso</p>
                     <Bar data={data9}/>
+                </div>
+                <div className="graficos-container linea">
+                    <p>Etstaus del proceso por carrera</p>
+                    <Bar data={data10} options={options2}/>
                 </div>
             </div>
         </div >
