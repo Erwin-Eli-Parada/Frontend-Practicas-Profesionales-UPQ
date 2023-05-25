@@ -1,3 +1,15 @@
+.principal .agregar {
+  background-color: #4188f2;
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.principal .agregar p {
+  margin-bottom: 0;
+}
 .principal .graficos {
   display: flex;
   flex-wrap: wrap;
