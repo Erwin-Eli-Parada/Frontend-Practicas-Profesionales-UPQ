@@ -2,12 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // import { Menu } from "../Components/menu";
 import { MainContext } from "../contexts/mainContext";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler} from 'chart.js';
 import { Pie, Line} from 'react-chartjs-2';
 import APIRoutes from '../functions/rutas'
 import "../styles/dashboard.css";
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler);
 
 export function Dashboard(props) {
 
@@ -27,6 +27,7 @@ export function Dashboard(props) {
     const [datosGiros, setDatosGiros] = useState({});
     const [datosTamanios, setDatosTamanios] = useState({});
     const [datosGeneracion, setDatosGeneracion] = useState([]);
+    const [datosCalfTipo, setDatosCalfTipo] = useState([]);
 
     useEffect(() => {
         const execute = async () => {
@@ -115,6 +116,19 @@ export function Dashboard(props) {
                 })
             
             setDatosGeneracion(usuarios)
+        };
+        execute();        
+    }, []);
+
+    useEffect(() => {
+        const execute = async () => {
+            const usuarios = await fetch(APIRoutes.graficaCalificacionTiponUrl)
+                .then(data => data.json())
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
+            
+            setDatosCalfTipo(usuarios)
         };
         execute();        
     }, []);
@@ -296,6 +310,33 @@ export function Dashboard(props) {
         ],
     }
 
+    const data8 = {
+        labels: ['Estadia', 'Estancia I', 'Estancia II'],
+        datasets: [
+            {
+                label: '# de resgitros',
+                data: [datosCalfTipo.estadia, datosCalfTipo.estancia1, datosCalfTipo.estancia2],
+                fill: true,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1,
+            },
+        ],
+    }
+
+    const options = {
+        scales: {
+          y: {
+            suggestedMin: 7,
+            suggestedMax: 10
+          },
+        },
+      };
+
     return (
         <div className="principal" >
             <h1 className="tituloPagina">Dashboard</h1>
@@ -329,7 +370,8 @@ export function Dashboard(props) {
                     <Pie data={data7}/>
                 </div>
                 <div className="graficos-container linea">
-                    <Line data={data}/>
+                    <p>Calificacion por tipo de proceso</p>
+                    <Line data={data8} options={options}/>
                 </div>
             </div>
         </div >

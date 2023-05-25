@@ -16,6 +16,7 @@ class APIRoutes {
     static graficaGiroUrl = this.baseUrl+"grafico/giro"
     static graficaTamanioUrl = this.baseUrl+"grafico/tamanio"
     static graficaGeneracionUrl = this.baseUrl+"grafico/generacion"
+    static graficaCalificacionTiponUrl = this.baseUrl+"grafico/calificacionTipo"
 }
 
 export default APIRoutes;
