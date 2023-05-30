@@ -44,6 +44,20 @@
   padding: 5px;
   margin-left: 3px;
 }
+.principal .cabecera-wrapper .filtros .conupq {
+  background-color: #367ee9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 5px;
+}
+.principal .cabecera-wrapper .filtros .sinupq {
+  background-color: #e93681;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 5px;
+}
 .principal .cabecera-wrapper .agregar {
   background-color: #4188f2;
   padding: 10px 15px;

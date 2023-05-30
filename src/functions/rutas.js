@@ -6,8 +6,10 @@ class APIRoutes {
 
     static datosUrl = this.baseUrl+"datos/alumno/"
     static encuestaUrl = this.baseUrl+"datos/encuestaAlumno/"
+    static comentarioUrl = this.baseUrl+"datos/comentarioAlumno/"
     static archivoUrl = this.baseUrl+"datos/archivo/"
     static archivoEncuestaUrl = this.baseUrl+"datos/archivoEncuesta/"
+    static archivoComentarioUrl = this.baseUrl+"datos/archivoComentario/"
 
     static graficaStatusUrl = this.baseUrl+"grafico/status"
     static graficaTipoUrl = this.baseUrl+"grafico/tipo"

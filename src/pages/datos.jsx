@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMagnifyingGlass, faCheckToSlot } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMagnifyingGlass, faCheckToSlot, faComment} from '@fortawesome/free-solid-svg-icons';
 import { Table, Form } from "react-bootstrap";
 import { ModalAgregarArchivo } from '../Components/modalAgregarArchivo';
 import "../styles/datos.css";
 import { ModalEncuestas } from "../Components/modalEncuestas";
+import { ModalComentarios } from "../Components/modalComentarios";
 import APIRoutes from '../functions/rutas'
 
 export function Datos(props) {
@@ -21,9 +22,11 @@ export function Datos(props) {
     const [giro, setGiro] = useState("Todos");
     const [tamanio, setTamanio] = useState("Todos");
     const [generacion, setGeneracion] = useState(0);
+    const [empresas_check, setEmpresasCheck] = useState(true);
 
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
     const [alumno, setAlumno] = useState("0");
 
     // const contexto = useContext(MainContext);
@@ -48,16 +51,16 @@ export function Datos(props) {
     //efecto para el filtrado
     useEffect(() => {
         usuarioFiltrado()
-    }, [currentPage, search, tipo, estatus, carrera, genero, generacion, giro, tamanio]);
+    }, [currentPage, search, tipo, estatus, carrera, genero, generacion, giro, tamanio, empresas_check]);
 
     //función del filtrado por busqueda
     const usuarioFiltrado = () => {
         let filtrados = [...datos]
-        if (carrera !== "Todos" || estatus !== "Todos" || tipo !== "Todos" || genero !== "Todos" || generacion != 0 || giro !== "Todos" || tamanio !== "Todos") {
+        if (carrera !== "Todos" || estatus !== "Todos" || tipo !== "Todos" || genero !== "Todos" || generacion != 0 || giro !== "Todos" || tamanio !== "Todos" || !empresas_check) {
 
             if (tipo !== "Todos")
                 filtrados = filtrados.filter(element =>
-                    element.id_practica.id_practica.tipo_proceso.toLowerCase()===tipo.toLowerCase()
+                    element.id_practica.id_practica.tipo_proceso.toLowerCase() === tipo.toLowerCase()
                 );
             if (estatus !== "Todos")
                 filtrados = filtrados.filter(element =>
@@ -82,6 +85,10 @@ export function Datos(props) {
             if (tamanio !== "Todos")
                 filtrados = filtrados.filter(element =>
                     element.id_practica.id_empresa.tamanio.toLowerCase() === tamanio.toLowerCase()
+                );
+            if (!empresas_check)
+                filtrados = filtrados.filter(element =>
+                    element.id_practica.id_empresa.nombre_empresa.toLowerCase() !== "universidad politecnica de queretaro"
                 );
         }
 
@@ -142,9 +149,17 @@ export function Datos(props) {
             <td>{element.id_practica.id_practica.id_practica.avance_2 ? "Si" : "No"}</td>
             <td>{element.id_practica.id_empresa.correo}</td>
             <td>{element.id_practica.id_empresa.telefono}</td>
-            <td className="botonEditar">
-                <button className="editar" onClick={e => { setAlumno(element.matricula); setShow2(true) }}><FontAwesomeIcon icon={faCheckToSlot} /></button>
+            <td className="fila-botones">
+                <button className="editar" onClick={e => { setAlumno(element.matricula); setShow2(true) }}>
+                    <FontAwesomeIcon icon={faCheckToSlot}/>
+                </button>
+                <button className="editar" onClick={e => { setAlumno(element.matricula); setShow3(true) }}>
+                    <FontAwesomeIcon icon={faComment}/>
+                </button>
             </td>
+            {/* <td className="botonEditar">
+                
+            </td> */}
         </tr>
     );
 
@@ -257,6 +272,11 @@ export function Datos(props) {
                             <option value={"P"}>P</option>
                         </select>
                     </div>
+                    <div>
+                        <button className={empresas_check ? "conupq" : "sinupq"} onClick={e => { setEmpresasCheck(!empresas_check) }}>
+                            {empresas_check ? 'Con UPQ' : 'Sin UPQ'}
+                        </button>
+                    </div>
                 </div>
                 <div style={{ display: "flex", gap: "5px" }}>
                     <button className="agregar" onClick={mostrar}><FontAwesomeIcon icon={faPlus} /><p>Agregar</p></button>
@@ -301,7 +321,7 @@ export function Datos(props) {
                         <th scope="col">Avance 2</th>
                         <th scope="col">Correo RH Empresa</th>
                         <th scope="col">Telefono RH Empresa</th>
-                        <th scope="col">Encuesta</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody className="tablaUsuarios-body">
@@ -310,6 +330,7 @@ export function Datos(props) {
             </Table>
             <ModalAgregarArchivo show={show} setShow={setShow} />
             <ModalEncuestas show={show2} setShow={setShow2} alumno={alumno} />
+            <ModalComentarios show={show3} setShow={setShow3} alumno={alumno} />
         </div>
     )
 }

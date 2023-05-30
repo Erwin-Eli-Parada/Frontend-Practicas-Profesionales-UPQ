@@ -41,7 +41,7 @@ export function ModalAgregarArchivo({ show, setShow }) {
             })
             .catch(error => {
                 console.log(error.status)
-                alert("Error de archivo")
+                alert("Archivo erroneo")
                 setIsLoading(false);
             });
 
@@ -52,9 +52,13 @@ export function ModalAgregarArchivo({ show, setShow }) {
         if(e.target.value==="opcion1"){
             setOpcionSeleccionada("opcion1")
             setUrl(APIRoutes.archivoUrl)
-        }else{
+        }else if(e.target.value==="opcion2"){
             setOpcionSeleccionada("opcion2")
             setUrl(APIRoutes.archivoEncuestaUrl)
+        }
+        else{
+            setOpcionSeleccionada("opcion3")
+            setUrl(APIRoutes.archivoComentarioUrl)
         }
     };
 
@@ -85,6 +89,15 @@ export function ModalAgregarArchivo({ show, setShow }) {
                             checked={opcionSeleccionada === 'opcion2'}
                             onChange={handleSeleccionarOpcion}
                             aria-label="opcion2"
+                        />
+                        <Form.Check
+                            type="radio"
+                            name="opcion"
+                            label="Excel de comentarios"
+                            value="opcion3"
+                            checked={opcionSeleccionada === 'opcion3'}
+                            onChange={handleSeleccionarOpcion}
+                            aria-label="opcion3"
                         />
                     </Form.Group>
                     <FormFile files={files} setFiles={setFiles} data-test-id="archivo"></FormFile>
