@@ -32,6 +32,7 @@ export function Dashboard(props) {
     const [datosCalfTipo, setDatosCalfTipo] = useState([]);
     const [datosGenCarrera, setDatosGenCarrera] = useState([]);
     const [datosStatusCarrera, setDatosStatusCarrera] = useState([]);
+    const [datosContratacion, setDatosContratacion] = useState([]);
 
     useEffect(() => {
         const execute = async () => {
@@ -104,6 +105,13 @@ export function Dashboard(props) {
                     alert('servidor no disponible')
                 })
             setDatosStatusCarrera(statuscarrera)
+
+            const contrato = await fetch(APIRoutes.graficaContratoUrl)
+                .then(data => data.json())
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
+            setDatosContratacion(contrato)
         };
         execute();
     }, []);
@@ -403,6 +411,25 @@ export function Dashboard(props) {
         },
     }
 
+    const data11 = {
+        labels: ['Contratar', 'No contratar'],
+        datasets: [
+            {
+                label: "%",
+                data: [datosContratacion.SI/(datosContratacion.SI+datosContratacion.NO)*100, datosContratacion.NO/(datosContratacion.SI+datosContratacion.NO)*100],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    }
+
     return (
         <div className="principal" >
             <h1 className="tituloPagina">Dashboard</h1>
@@ -437,6 +464,10 @@ export function Dashboard(props) {
                 <div className="graficos-container">
                     <p>Cantidad de procesos por tamaño de la empresa</p>
                     <Pie data={data6} />
+                </div>
+                <div className="graficos-container">
+                    <p>¿El alumno será contratado al término de su Estadia?</p>
+                    <Pie data={data11} />
                 </div>
                 <div className="graficos-container linea">
                     <p>Calificacion por tipo de proceso</p>

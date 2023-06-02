@@ -21,6 +21,7 @@ class APIRoutes {
     static graficaCalificacionTiponUrl = this.baseUrl+"grafico/calificacionTipo"
     static graficaGenCarreraUrl = this.baseUrl+"grafico/generoCarrera"
     static graficaStatusCarreraUrl = this.baseUrl+"grafico/statusCarrera"
+    static graficaContratoUrl = this.baseUrl+"grafico/contrato"
 }
 
 export default APIRoutes;
