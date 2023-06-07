@@ -3,7 +3,13 @@ import APIRoutes from './rutas'
 export default function verificar(usuario, password, navigate) {
 
     fetch(APIRoutes.loginUrl + usuario + "/" + password)
-        .then(data => data.json())
+        .then(data => {
+            if(data.status === 401){
+                alert('Usuario o contraseña incorrecta');
+            }else{            
+                return data.json()
+            }
+        })
         .then(res => {
             console.log(res.id, res.is_active, res.is_superuser)
             if (res.id === undefined) {
@@ -37,7 +43,7 @@ export default function verificar(usuario, password, navigate) {
                 alert('Usuario o contraseña incorrecta');
             }
         }).catch( e =>{
-            alert('servidor no disponible')
+            // alert('servidor no disponible')
         })
 
 
