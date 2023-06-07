@@ -33,6 +33,7 @@ export function Dashboard(props) {
     const [datosGenCarrera, setDatosGenCarrera] = useState([]);
     const [datosStatusCarrera, setDatosStatusCarrera] = useState([]);
     const [datosContratacion, setDatosContratacion] = useState([]);
+    const [documento, setDocumento] = useState();
 
     useEffect(() => {
         const execute = async () => {
@@ -115,6 +116,24 @@ export function Dashboard(props) {
         };
         execute();
     }, []);
+
+    const generarReporte = () => {
+        try{
+            fetch(APIRoutes.documento)
+                .then(data => data.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const reporte=window.open(url, '_blank');
+                    reporte.document.title = 'reporte.pdf'
+                  })
+                .catch(e => {
+                    alert('servidor no disponible')
+                })
+            
+        }catch (error){
+            console.error(error)
+        }
+    }
 
     const data = {
         labels: ['Autorizado', 'Concluido', 'Corregir Información', 'solicitud', 'Rechazado', 'Reprobado'],
@@ -302,11 +321,11 @@ export function Dashboard(props) {
     }
 
     const data8 = {
-        labels: ['Estadia', 'Estancia I', 'Estancia II'],
+        labels: ['Estancia I', 'Estancia II', 'Estadia'],
         datasets: [
             {
                 label: 'Calificación',
-                data: [datosCalfTipo.estadia, datosCalfTipo.estancia1, datosCalfTipo.estancia2],
+                data: [datosCalfTipo.estancia1, datosCalfTipo.estancia2, datosCalfTipo.estadia],
                 fill: true,
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)'
@@ -434,7 +453,7 @@ export function Dashboard(props) {
         <div className="principal" >
             <h1 className="tituloPagina">Dashboard</h1>
             <div style={{ display: "flex", justifyContent: "flex-end", margin: "15px 2px"}}>
-                <button className="agregar"><FontAwesomeIcon icon={faFilePdf} /><p> Generar Reporte </p></button>
+                <button className="agregar" onClick={generarReporte}><FontAwesomeIcon icon={faFilePdf} /><p> Generar Reporte </p></button>
             </div>
             <div className="graficos">
                 <div className="graficos-container">
@@ -470,15 +489,15 @@ export function Dashboard(props) {
                     <Pie data={data11} />
                 </div>
                 <div className="graficos-container linea">
-                    <p>Calificacion por tipo de proceso</p>
+                    <p>Calificación por tipo de proceso</p>
                     <Bar data={data9} />
                 </div>
                 <div className="graficos-container linea">
-                    <p>Etstaus del proceso por carrera</p>
+                    <p>Estatus del proceso por carrera</p>
                     <Bar data={data10} options={options2} />
                 </div>
                 <div className="graficos-container linea">
-                    <p>Calificacion por tipo de proceso</p>
+                    <p>Calificación por tipo de proceso</p>
                     <Line data={data8} options={options} />
                 </div>
             </div>

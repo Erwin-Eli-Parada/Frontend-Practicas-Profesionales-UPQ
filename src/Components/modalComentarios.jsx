@@ -39,7 +39,7 @@ export function ModalComentarios({ show, setShow, alumno }) {
         <>
             <Modal show={show} onHide={handleClose} className='modal'>
                 <Modal.Header closeButton className='modal-header'>
-                    <Modal.Title className='modal-header-title'>Encuesta</Modal.Title>
+                    <Modal.Title className='modal-header-title'>Comentarios</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className='modal-body'>
