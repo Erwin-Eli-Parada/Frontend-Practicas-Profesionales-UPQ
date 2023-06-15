@@ -7,7 +7,7 @@ import { Pie, Line, Bar } from 'react-chartjs-2';
 import APIRoutes from '../functions/rutas'
 import "../styles/dashboard.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Filler);
 
@@ -118,19 +118,19 @@ export function Dashboard(props) {
     }, []);
 
     const generarReporte = () => {
-        try{
-            fetch(APIRoutes.documento)
+        try {
+            fetch(documento)
                 .then(data => data.blob())
                 .then(blob => {
                     const url = URL.createObjectURL(blob);
-                    const reporte=window.open(url, '_blank');
+                    const reporte = window.open(url, '_blank');
                     reporte.document.title = 'reporte.pdf'
-                  })
+                })
                 .catch(e => {
                     alert('servidor no disponible')
                 })
-            
-        }catch (error){
+
+        } catch (error) {
             console.error(error)
         }
     }
@@ -435,7 +435,7 @@ export function Dashboard(props) {
         datasets: [
             {
                 label: "%",
-                data: [datosContratacion.SI/(datosContratacion.SI+datosContratacion.NO)*100, datosContratacion.NO/(datosContratacion.SI+datosContratacion.NO)*100],
+                data: [datosContratacion.SI / (datosContratacion.SI + datosContratacion.NO) * 100, datosContratacion.NO / (datosContratacion.SI + datosContratacion.NO) * 100],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.5)',
                     'rgba(255, 99, 132, 0.5)',
@@ -451,54 +451,75 @@ export function Dashboard(props) {
 
     return (
         <div className="principal" >
-            <h1 className="tituloPagina">Dashboard</h1>
-            <div style={{ display: "flex", justifyContent: "flex-end", margin: "15px 2px"}}>
-                <button className="agregar" onClick={generarReporte}><FontAwesomeIcon icon={faFilePdf} /><p> Generar Reporte </p></button>
+            <h1 className="tituloPagina">Gráficas de los prácticas profesionales</h1>
+            <div style={{ display: "flex", justifyContent: "flex-end", margin: "15px 2px" }}>
+                <select aria-label="documentoSelect" className='selector' name="documentoSelect" defaultValue={APIRoutes.documento1} onChange={e => { setDocumento(e.target.value) }}>
+                    <option value={APIRoutes.documento1}>Métricas</option>
+                    <option value={APIRoutes.documento2}>Empresas</option>
+                    <option value={APIRoutes.documento3}>Alumnos</option>
+                    <option value={APIRoutes.documento4}>Asesores UPQ</option>
+                </select>
+                <button className="agregar" onClick={generarReporte}><FontAwesomeIcon icon={faFilePdf} /><p> Generar Reportes </p></button>
             </div>
             <div className="graficos">
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por estatus</p>
-                    <Pie data={data} options={options3} />
+                <div className="pastel">
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por estatus</p>
+                        <p className="descripcion">Número de practicas profesionales agrupadas por el estatus en el que se quedaron registradas</p>
+                        <Pie data={data} options={options3} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por carrera</p>
+                        <p className="descripcion">Número de alumnos en las practicas profesionales agrupados por cada carrera</p>
+                        <Pie data={data3} options={options3} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por Generación</p>
+                        <p className="descripcion">Número de alumnos de practicas profesionales agrupados por la generación a la que pertenecen</p>
+                        <Pie data={data7} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por sexo</p>
+                        <p className="descripcion">Número de alumnos agrupados por su sexo</p>
+                        <Pie data={data4} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por tipo</p>
+                        <p className="descripcion">Número de alumnos agrupados por el tipo de practica profesional en la que se encuentran</p>
+                        <Pie data={data2} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por giro de la empresa</p>
+                        <p className="descripcion">Número de practicas profesionales agrupadas el tipo de empresa en la que se realizan</p>
+                        <Pie data={data5} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>Cantidad de procesos por tamaño de la empresa</p>
+                        <p className="descripcion">Número de practicas profesionales agrupadas por tamaño de la empresa en la que se realizan</p>
+                        <Pie data={data6} />
+                    </div>
+                    <div className="graficos-container">
+                        <p>¿El alumno será contratado al término de su Estadia?</p>
+                        <p className="descripcion">Número de alumnos que serian contratados al terminar la estadia de acuerdo a la encuesta del asesor externo</p>
+                        <Pie data={data11} />
+                    </div>
                 </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por carrera</p>
-                    <Pie data={data3} options={options3} />
-                </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por Generación</p>
-                    <Pie data={data7} />
-                </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por genero</p>
-                    <Pie data={data4} />
-                </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por tipo</p>
-                    <Pie data={data2} />
-                </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por giro de la empresa</p>
-                    <Pie data={data5} />
-                </div>
-                <div className="graficos-container">
-                    <p>Cantidad de procesos por tamaño de la empresa</p>
-                    <Pie data={data6} />
-                </div>
-                <div className="graficos-container">
-                    <p>¿El alumno será contratado al término de su Estadia?</p>
-                    <Pie data={data11} />
-                </div>
-                <div className="graficos-container linea">
-                    <p>Calificación por tipo de proceso</p>
-                    <Bar data={data9} />
-                </div>
-                <div className="graficos-container linea">
-                    <p>Estatus del proceso por carrera</p>
-                    <Bar data={data10} options={options2} />
-                </div>
-                <div className="graficos-container linea">
-                    <p>Calificación por tipo de proceso</p>
-                    <Line data={data8} options={options} />
+                <div className="barras">
+                    <div className="graficos-container linea">
+                        <p>sexo por carrera</p>
+                        <p className="descripcion">Número de alumnos agrupados por carrera y dividos por su genero</p>
+                        <Bar data={data9} />
+                    </div>
+                    <div className="graficos-container linea">
+                        <p>Estatus del proceso por carrera</p>
+                        <p className="descripcion">Número de practicas profesionales agrupadas por carrera y diferenciadas de acuerdo al estatus en el que se encuentran</p>
+                        <Bar data={data10} options={options2} />
+                    </div>
+                    <div className="graficos-container linea">
+                        <p>Calificación por tipo de proceso</p>
+                        <p className="descripcion">Promedio de la calificación de los proyectos a lo largo los tipos de practicas profesionales</p>
+                        <Line data={data8} options={options} />
+                    </div>
                 </div>
             </div>
         </div >

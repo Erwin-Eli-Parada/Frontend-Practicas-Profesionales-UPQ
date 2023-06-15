@@ -1,6 +1,6 @@
 class APIRoutes {
-    // static baseUrl = 'http://127.0.0.1:8000/';
-    static baseUrl = 'https://drfpracticasprofesionalestest.onrender.com/';
+    static baseUrl = 'http://127.0.0.1:8000/';
+    // static baseUrl = 'https://drfpracticasprofesionalestest.onrender.com/';
     
     static loginUrl = this.baseUrl+"api/usuario/"
     static historialUrl = this.baseUrl+"api/historial/"
@@ -24,7 +24,10 @@ class APIRoutes {
     static graficaStatusCarreraUrl = this.baseUrl+"grafico/statusCarrera"
     static graficaContratoUrl = this.baseUrl+"grafico/contrato"
 
-    static documento = this.baseUrl+"documento"
+    static documento1 = this.baseUrl+"documento/estadisticas"
+    static documento2 = this.baseUrl+"documento/empresas"
+    static documento3 = this.baseUrl+"documento/nombres"
+    static documento4 = this.baseUrl+"documento/asesor"
 }
 
 export default APIRoutes;
