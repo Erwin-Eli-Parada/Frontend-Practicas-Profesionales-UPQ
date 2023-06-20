@@ -59,6 +59,16 @@
                 background-color: rgba(42, 109, 209, 0.856);
             }
         }
+
+        .btn-recuContra{
+            background-color: transparent;
+            border: none;
+
+            &:hover{
+                color: #01317e;
+                text-decoration: underline;
+            }
+        }
     }
 
     @keyframes bajadainicio{

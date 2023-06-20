@@ -8,9 +8,10 @@ export function MainContextProvider(props){
     const [auth, setAuth] = useState(false);
     const [staff, setStaff] = useState(false);
     const [superUser, setSuperUser] = useState(false);
+    const [correo, setCorreo] = useState("");
 
     return(
-        <MainContext.Provider value={{usuario,setUsuario,password,setPassword,auth,setAuth,staff,setStaff,superUser,setSuperUser}}>
+        <MainContext.Provider value={{usuario,setUsuario,password,setPassword,auth,setAuth,staff,setStaff,superUser,setSuperUser,correo, setCorreo}}>
             {props.children}
         </MainContext.Provider>
     )

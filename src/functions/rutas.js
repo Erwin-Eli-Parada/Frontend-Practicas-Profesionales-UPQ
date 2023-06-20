@@ -4,6 +4,7 @@ class APIRoutes {
     
     static loginUrl = this.baseUrl+"api/usuario/"
     static historialUrl = this.baseUrl+"api/historial/"
+    static recuperarUrl = this.baseUrl+"api/usuario/recuContra/"
 
     static datosUrl = this.baseUrl+"datos/alumno/"
     static encuestaUrl = this.baseUrl+"datos/encuestaAlumno/"
@@ -28,6 +29,8 @@ class APIRoutes {
     static documento2 = this.baseUrl+"documento/empresas"
     static documento3 = this.baseUrl+"documento/nombres"
     static documento4 = this.baseUrl+"documento/asesor"
+
+    static infoAlumno = this.baseUrl+"datos/infoAlumno/"
 }
 
 export default APIRoutes;

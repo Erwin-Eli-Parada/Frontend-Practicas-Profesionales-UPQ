@@ -33,7 +33,7 @@ export function Dashboard(props) {
     const [datosGenCarrera, setDatosGenCarrera] = useState([]);
     const [datosStatusCarrera, setDatosStatusCarrera] = useState([]);
     const [datosContratacion, setDatosContratacion] = useState([]);
-    const [documento, setDocumento] = useState();
+    const [documento, setDocumento] = useState(APIRoutes.documento1);
 
     useEffect(() => {
         const execute = async () => {

@@ -11,12 +11,13 @@ export function Menu(props) {
     const navigate = useNavigate();
     const { state } = useLocation()
 
-    const { usuario, auth, staff, superUser, setUsuario, setAuth, setStaff, setSuperUser } = useContext(MainContext)
+    const { usuario, auth, staff, superUser, setUsuario, setAuth, setStaff, setSuperUser, correo, setCorreo } = useContext(MainContext)
 
     setUsuario(state.usuario)
     setAuth(state.auth)
     setStaff(state.permiso)
     setSuperUser(state.superUsuario)
+    setCorreo(state.correo)
 
     const handleClickDashboard = e => {
         navigate('/dashboard', {

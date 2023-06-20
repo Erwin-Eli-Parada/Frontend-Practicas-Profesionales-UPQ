@@ -11,6 +11,9 @@
 .principal .agregar p {
   margin-bottom: 0;
 }
+.principal .selector {
+  border-radius: 5px;
+}
 .principal .graficos {
   display: flex;
   flex-direction: column;

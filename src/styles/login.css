@@ -55,6 +55,14 @@
 .login-container .submit:focus {
   background-color: rgba(42, 109, 209, 0.856);
 }
+.login-container .btn-recuContra {
+  background-color: transparent;
+  border: none;
+}
+.login-container .btn-recuContra:hover {
+  color: #01317e;
+  text-decoration: underline;
+}
 @keyframes bajadainicio {
   0% {
     margin-bottom: 100%;

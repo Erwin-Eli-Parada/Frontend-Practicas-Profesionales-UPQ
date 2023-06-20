@@ -7,6 +7,7 @@ import { Dashboard } from "./pages/dashboard";
 import { Datos } from "./pages/datos";
 import { Error404 } from "./pages/error404";
 import { Login } from "./pages/login";
+import { Alumno } from "./pages/alumno";
 import PrivateRoute from "./Components/privateRoute";
 import { Menu } from "./Components/menu";
 //estilos
@@ -42,6 +43,13 @@ root.render(
                     <PrivateRoute>
                         <Menu>
                             <Dashboard />
+                        </Menu>
+                    </PrivateRoute>
+                } />
+                <Route exact path="/alumno" element={
+                    <PrivateRoute>
+                        <Menu>
+                            <Alumno />
                         </Menu>
                     </PrivateRoute>
                 } />
