@@ -8,12 +8,12 @@
         }
     }
 
-    &-body {
+    &-body2 {
         display: flex;
         flex-direction: column;
         text-align: center;
         justify-content: space-between;
-        // height: 150px;
+        height: 150px;
 
         .input {
             height: 40%;

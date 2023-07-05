@@ -5,24 +5,25 @@
   font-weight: bolder !important;
   color: white;
 }
-.modal-body {
+.modal-body2 {
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: space-between;
+  height: 150px;
 }
-.modal-body .input {
+.modal-body2 .input {
   height: 40%;
   border-radius: 10px;
   border: none;
   background-color: RGB(236, 236, 236);
   padding: 0 10px;
 }
-.modal-body .etiqueta {
+.modal-body2 .etiqueta {
   text-align: initial;
   padding-left: 5px;
 }
-.modal-body .cargando {
+.modal-body2 .cargando {
   margin-top: 20px;
   height: 50%;
   display: flex;

@@ -47,7 +47,7 @@ export function ModalRecuperar({ show, setShow}) {
                     <Modal.Title className='modal-header-title'>Recuperar contraseña</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body className='modal-body'>
+                <Modal.Body className='modal-body2'>
                     <h5>Ingrese su correo para que se le envie la nueva contraseña</h5>
                     <input type="email" className="input" placeholder="Correo" onChange={handleChangeUsuario} required/>
                 </Modal.Body>
