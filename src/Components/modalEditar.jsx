@@ -88,7 +88,7 @@ export function ModalEditar({ show, setShow, elemento}) {
                     <label for="correo" className='etiqueta'>Correo</label>
                     <input id="correo" className='modal-body-input' type="email" placeholder='Correo' value={correo} onChange={e => { setCorreo(e.target.value) }} />
                     <label for="password" className='etiqueta'>Contraseña</label>
-                    <input id="password" className='modal-body-input' type="text" placeholder='Contraseña' value={password} onChange={e => { setPassword(e.target.value) }} />
+                    <input id="password" className='modal-body-input' type="text" placeholder='Contraseña' onChange={e => { setPassword(e.target.value) }} />
                     <label for="role" className='etiqueta'>Rol</label>
                     <select id="role" className='modal-body-input' name="select" value={role} onChange={e => { console.log("valor elejido",e.target.value); setRole(e.target.value) }}>
                         <option value={1}>Administrador</option>

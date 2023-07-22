@@ -1,6 +1,6 @@
 class APIRoutes {
-    static baseUrl = 'http://127.0.0.1:8000/';
-    // static baseUrl = 'https://drfpracticasprofesionalestest.onrender.com/';
+    // static baseUrl = 'http://127.0.0.1:8000/';
+    static baseUrl = 'https://drfpracticasprofesionalestest.onrender.com/';
     
     static loginUrl = this.baseUrl+"api/usuario/"
     static historialUrl = this.baseUrl+"api/historial/"
